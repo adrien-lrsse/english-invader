@@ -87,14 +87,11 @@ To get a local copy up and running follow these simple steps.
 1. Clone the repo
 
    ```sh
-   git clone https://gitlab.telecomnancy.univ-lorraine.fr/Stanislas.Mezureux/mezureux1u.git
    ```
 
 2. Build all
 
    ```sh
-   cd mezureux1u
-   ./gradlew assemble
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
