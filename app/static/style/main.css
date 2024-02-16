@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    background: black;
+}
+
+h1{
+    color:  white;
+    font-family: Arimo;
+    text-align: center;
+    font-size: 3em;
+}
+
+.vertical{
+    display: flex;
+    flex-direction: column;
+}
+
+.button_actionnable{
+    width: 30%;
+    padding: 1.25em;
+    font-size: 1.5em;
+    background: black;
+    color: white;
+    border-radius: 1em;
+    border-color: white ;
+}
+
+.button_actionnable:hover{
+    background: #323232;
+}
+
+.centering_horizontal{
+    display: flex;
+    align-items: center;
+}
+
+.centering_vertical{
+    display: flex;
+    justify-content: center;
+}
