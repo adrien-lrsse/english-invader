@@ -106,14 +106,14 @@ function endGameExecution(){
         ctx.fillStyle = "white";
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         ctx.font = "30px Arial";
-        ctx.fillText("You win !", gameCanvas.width/2, gameCanvas.height/2);
+        ctx.fillText("You win !", (gameCanvas.width - ctx.measureText("You win !").width)/2, gameCanvas.height/2);
         clearInterval(displayInterval);
         clearInterval(gameInterval);
     } else {
         ctx.fillStyle = "white";
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         ctx.font = "30px Arial";
-        ctx.fillText("You lost !", gameCanvas.width/2, gameCanvas.height/2);
+        ctx.fillText("You lost !", (gameCanvas.width - ctx.measureText("You lost !").width)/2, gameCanvas.height/2);
         clearInterval(displayInterval);
         clearInterval(gameInterval);
     }
