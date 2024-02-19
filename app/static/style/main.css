@@ -54,6 +54,10 @@ h2{
 
 #gameCanvas{
     border: 1px solid white;
+    background-image: url('../figures/background.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .input_answer {
