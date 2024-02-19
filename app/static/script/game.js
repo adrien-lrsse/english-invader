@@ -3,6 +3,8 @@ import {CanvasWord} from "./canvasWord.js";
 const gameCanvas = document.getElementById("gameCanvas");
 const ctx = gameCanvas.getContext("2d");
 
+const proposal = document.getElementById("proposal")
+
 var x = gameCanvas.width / 2;
 var y = 0   ;
 
@@ -75,3 +77,15 @@ function addNewWordInGame(dictionary){
         dictionary.delete(randomkey);
     }
 }
+
+proposal.addEventListener("keydown", function (event){
+    if (event.key === "Enter"){
+        const proposalValue = event.target.value;
+        for (let i = 0; i < inGame.length; i++) {
+            if (inGame[i].guess === proposalValue){
+                event.target.value = "";
+                inGame.splice(i,1)
+            }
+        }
+    }
+})
