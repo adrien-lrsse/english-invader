@@ -8,6 +8,8 @@ const proposal = document.getElementById("proposal")
 var x = gameCanvas.width / 2;
 var y = 0   ;
 
+var life = 3;
+
 var dictionary = new Map([
     ["dog", "chien"],
     ["cat", "chat"],
@@ -53,14 +55,22 @@ function game() {
 
     for (let i = 0; i < inGame.length; i++) {
         inGame[i].updatePos();
+        if (inGame[i].posY >= gameCanvas.height){
+            inGame.slice(i,1);
+            life--;
+        }
+    }
+
+    if ((inGame.length === 0 && dictionary.size === 0) || (life === 0) ){
+        endGameExecution();
     }
 
 
 }
 
 // Appelle la fonction game toutes les 10 millisecondes (ou toute valeur souhaitée)
-setInterval(game, 20);
-setInterval(display, 1)
+const gameInterval = setInterval(game, 20);
+const displayInterval = setInterval(display, 1)
 
 function randomSelection(dictionary){
     // Renvoie une clé aléatoire dans le dictionnaire
@@ -84,8 +94,27 @@ proposal.addEventListener("keydown", function (event){
         for (let i = 0; i < inGame.length; i++) {
             if (inGame[i].guess === proposalValue){
                 event.target.value = "";
+                validated.push(inGame[i])
                 inGame.splice(i,1)
             }
         }
     }
 })
+
+function endGameExecution(){
+    if (validated.length === 20){
+        ctx.fillStyle = "white";
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+        ctx.font = "30px Arial";
+        ctx.fillText("You win !", gameCanvas.width/2, gameCanvas.height/2);
+        clearInterval(displayInterval);
+        clearInterval(gameInterval);
+    } else {
+        ctx.fillStyle = "white";
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+        ctx.font = "30px Arial";
+        ctx.fillText("You lost !", gameCanvas.width/2, gameCanvas.height/2);
+        clearInterval(displayInterval);
+        clearInterval(gameInterval);
+    }
+}
