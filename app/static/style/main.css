@@ -10,9 +10,22 @@ h1{
     font-size: 3em;
 }
 
+h2{
+    color: white;
+}
+
 .vertical{
     display: flex;
     flex-direction: column;
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+}
+
+.space_between{
+    justify-content: space-between;
 }
 
 .button_actionnable{

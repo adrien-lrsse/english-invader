@@ -3,12 +3,15 @@ import {CanvasWord} from "./canvasWord.js";
 const gameCanvas = document.getElementById("gameCanvas");
 const ctx = gameCanvas.getContext("2d");
 
-const proposal = document.getElementById("proposal")
+const proposal = document.getElementById("proposal");
+const lifeElement = document.getElementById("life");
+const scoreElement = document.getElementById("score");
 
 var x = gameCanvas.width / 2;
-var y = 0   ;
+var y = 0;
 
 var life = 3;
+var score = 0;
 
 var dictionary = new Map([
     ["dog", "chien"],
@@ -52,14 +55,17 @@ function game() {
     addNewWordInGame(dictionary);
     console.log(inGame);
 
-
+    var inGameTemp = [];
     for (let i = 0; i < inGame.length; i++) {
         inGame[i].updatePos();
         if (inGame[i].posY >= gameCanvas.height){
-            inGame.slice(i,1);
             life--;
+            lifeElement.innerHTML = "Life : "+life;
+        } else {
+            inGameTemp.push(inGame[i]);
         }
     }
+    inGame = inGameTemp;
 
     if ((inGame.length === 0 && dictionary.size === 0) || (life === 0) ){
         endGameExecution();
@@ -82,7 +88,7 @@ function addNewWordInGame(dictionary){
     const entierAleatoire = Math.floor(Math.random() * 50) + 1;
     if (entierAleatoire === 1 && dictionary.size !==0) {
         var randomkey = randomSelection(dictionary);
-        const word = new CanvasWord(randomkey, dictionary.get(randomkey), Math.floor(Math.random() * gameCanvas.width) + 1, 0);
+        const word = new CanvasWord(randomkey, dictionary.get(randomkey), Math.floor(Math.random() * (gameCanvas.width - ctx.measureText(dictionary.get(randomkey)).width)-1)  + 1, 0);
         inGame.push(word);
         dictionary.delete(randomkey);
     }
@@ -94,15 +100,17 @@ proposal.addEventListener("keydown", function (event){
         for (let i = 0; i < inGame.length; i++) {
             if (inGame[i].guess === proposalValue){
                 event.target.value = "";
-                validated.push(inGame[i])
-                inGame.splice(i,1)
+                validated.push(inGame[i]);
+                inGame.splice(i,1);
+                score++;
+                scoreElement.innerHTML = "Score : "+score;
             }
         }
     }
 })
 
 function endGameExecution(){
-    if (validated.length === 20){
+    if (validated.length === 20 || life > 0){
         ctx.fillStyle = "white";
         ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
         ctx.font = "30px Arial";
