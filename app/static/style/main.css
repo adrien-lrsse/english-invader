@@ -38,3 +38,18 @@ h1{
     display: flex;
     justify-content: center;
 }
+
+#gameCanvas{
+    border: 1px solid white;
+}
+
+.input_answer {
+    margin-top: 1em;
+    width: 480px;
+    color: white;
+    background: black;
+    border : none;
+    border-bottom: 1px solid white;
+    font-size: 1.5em;
+    outline: none;
+}

@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../static/style/main.css"/>
     <meta charset="UTF-8">
     <title>The Game</title>
     <link rel="stylesheet"  href="{{ url_for('static', filename='style/main.css') }}">
+
+
 </head>
 <body>
-test
+<div class="centering_horizontal centering_vertical vertical">
+    <h1>The Game</h1>
+    <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <input class="input_answer" placeholder="propostion">
+
+</div>
+
+<script type="module" src="{{ url_for('static', filename='script/game.js') }}"></script>
 </body>
+
 </html>
