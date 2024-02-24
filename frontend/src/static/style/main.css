@@ -1,0 +1,178 @@
+body{
+    margin: 0;
+    background: black;
+}
+
+h1{
+    color:  white;
+    font-family: Arimo;
+    text-align: center;
+    font-size: 3em;
+}
+
+h2{
+    color: white;
+}
+
+.vertical{
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+}
+
+.space_between{
+    justify-content: space-between;
+}
+
+.button_actionnable{
+    width: 30%;
+    padding: 1.25em;
+    font-size: 1.5em;
+    background: black;
+    color: white;
+    border-radius: 1em;
+    border-color: white ;
+}
+
+.button_actionnable:hover{
+    background: #323232;
+}
+
+.centering_horizontal{
+    display: flex;
+    align-items: center;
+}
+
+.centering_vertical{
+    display: flex;
+    justify-content: center;
+}
+
+#gameCanvas{
+    border: 1px solid white;
+    background-image: url('../figures/background.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.input_answer {
+    margin-top: 1em;
+    width: 480px;
+    color: white;
+    background: black;
+    border : none;
+    border-bottom: 1px solid white;
+    font-size: 1.5em;
+    outline: none;
+    margin-left: 1em;
+    margin-right: 1em;
+    //padding-bottom: 0.5em;
+}
+
+.space_between{
+    justify-content: space-around;
+}
+
+
+.deleteButton{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid rgb(231, 50, 50);
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px #333;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.deleteButton:hover {
+    background-color: rgb(245, 207, 207);
+    transform: scale(1.2);
+    box-shadow: 0 0 4px #111;
+    transition: .3s;
+}
+
+
+svg {
+    color: rgb(231, 50, 50);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s;
+}
+
+
+.deleteButton:focus svg {
+    opacity: 0;
+    transition: .3s;
+}
+
+
+.deleteButtonSpan {
+    width: 150px;
+    position: absolute;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    color: rgb(231, 50, 50);
+    font-weight: 600;
+    transition: .3s;
+}
+
+
+.deleteButton:focus {
+    width: 150px;
+    height: 50px;
+    transition: .3s;
+}
+
+
+.deleteButton:focus .deleteButtonSpan {
+    opacity: 1;
+    transition: .3s;
+}
+
+
+.saveButton{
+    position: relative;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid rgb(68, 50, 231);
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px #333;
+    overflow: hidden;
+    transition: .3s;
+}
+
+
+.saveButton:hover {
+    background-color: rgb(221, 217, 255);
+    transform: scale(1.2);
+    box-shadow: 0 0 4px #111;
+    transition: .3s;
+}
+
+
+.saveButton span {
+    width: 150px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: rgb(68, 50, 231);
+    font-weight: 600;
+    transition: .3s;
+}
+
+.saveButton:focus {
+    width: 150px;
+    height: 50px;
+    transition: .3s;
+}
