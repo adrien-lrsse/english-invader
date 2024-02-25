@@ -45,7 +45,7 @@ function CreateTopic(){
         for (let definition of definitions) {
             const current = definition.key;
             console.log(document.getElementById("word_"+current).value);
-            console.log(document.getElementById("definition_"+current));
+            console.log(document.getElementById("definition_"+current).value);
         }
     }
 

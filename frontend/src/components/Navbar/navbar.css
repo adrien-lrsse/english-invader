@@ -32,3 +32,8 @@
     font-size: 3em;
     padding-left: 1em;
 }
+
+.navbar h1 a{
+    color: white;
+    text-decoration: none;
+}
