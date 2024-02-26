@@ -89,11 +89,16 @@ To get a local copy up and running follow these simple steps.
    git clone git@github.com:adrien-lrsse/english-invader.git
    ```
 
-2. Build all
+2. Build and Run
+   - **Production**
 
    ```sh
    docker compose up --build
    ```
+   - **Developpement**
+   ```sh
+   docker-compose -f docker-compose.dev.yml up --build
+   ``` 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
