@@ -5,7 +5,7 @@ const TopicList = (props) => {
     return ( 
         <div className="topicList">
             { topics.map((topic) => (
-                    <div className="topic-preview" key={topic.id}>
+                    <div className="topic-preview" key={topic.idTopic}>
                         <h2>{topic.title}</h2>
                         <h3>{topic.description}</h3>
                         <div className='button-preview'>

@@ -19,4 +19,5 @@ services:
       - 3001:3001
     volumes:
       - ./server/src:/server/src
+      - ./server/db:/server/db
     container_name: react-express-server-dev

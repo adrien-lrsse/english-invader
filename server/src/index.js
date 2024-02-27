@@ -4,6 +4,9 @@ const express = require("express");
 const cors = require("cors");
 const sqlite3 = require('sqlite3').verbose();
 
+const app = express();
+app.use(cors());
+
 const db = new sqlite3.Database('db/db.sqlite', (err) => {
   if (err) {
     console.error('Error connecting to database:', err);
@@ -13,8 +16,9 @@ const db = new sqlite3.Database('db/db.sqlite', (err) => {
 });
 
 const PORT = process.env.PORT || 3001;
+const HOST = '0.0.0.0';
 
-const app = express();
+
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
@@ -68,6 +72,6 @@ app.get('/api/printSchema', (req, res) => {
   
 
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server listening on ${HOST}:${PORT}`);
 });
