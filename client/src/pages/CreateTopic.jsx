@@ -41,13 +41,43 @@ function CreateTopic(){
  
 
     const saveTopic = () => {
-        // Récupérer les valeurs des champs
-        for (let definition of definitions) {
-            const current = definition.key;
-            console.log(document.getElementById("word_"+current).value);
-            console.log(document.getElementById("definition_"+current).value);
+        // Récupérer le titre et la description du topic
+        const title = document.getElementById("topic").value;
+        const description = document.getElementById("description").value;
+    
+        // Vérifier si le titre et la description sont renseignés
+        if (!title || !description) {
+            console.error('Title and description are required');
+            return;
         }
-    }
+    
+        // Créer un objet contenant le titre et la description du topic
+        const topicData = {
+            title: title,
+            description: description
+        };
+    
+        // Envoyer les données à l'API
+        fetch('/api/topics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(topicData)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Afficher un message de succès ou rediriger l'utilisateur
+                console.log('Topic saved successfully');
+            } else {
+                // Afficher un message d'erreur
+                console.error('Failed to save topic');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
 
    
         
@@ -58,6 +88,7 @@ function CreateTopic(){
                 <h1>Create a new topic</h1>
                 <div className="horizontal centering_vertical">
                     <input id="topic" className="input_answer" placeholder="topic" />
+                    <input id="description" className="input_answer" placeholder="description" />
                     <button onClick={saveTopic} id="save" className="saveButton">
                         <span>SAVE</span>
                     </button>
