@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar/Navbar";
 function CreateTopic(){
 
     const [index, setIndex] = useState(0);
-
     const [definitions, setDefinitions] = useState([]);
 
 
@@ -29,35 +28,34 @@ function CreateTopic(){
             return prevDefinitions.filter(definition => definition.key !== String(keyToDelete));
         });
     }
-    
-   
+
 
     const addDefinition = () => {
         setDefinitions([...definitions, definition_section({ key: index, onDelete: deleteDefinition })]);
         setIndex(index + 1);
         console.log(index);
     }
-    
- 
+
 
     const saveTopic = () => {
-        // Récupérer le titre et la description du topic
+        // Récupération des données concernant la table TOPICS
         const title = document.getElementById("topic").value;
         const description = document.getElementById("description").value;
     
-        // Vérifier si le titre et la description sont renseignés
+        // Vérification sur les données (peut-être pas nécessaire ici, surtout car c'est côté client donc contournable, mais c'est une bonne pratique)
+        // TODO : Des vérifiacations sont peut-être à ajouter
         if (!title || !description) {
             console.error('Title and description are required');
             return;
         }
-    
-        // Créer un objet contenant le titre et la description du topic
+
+        // Création de l'objet que l'on va envoyer à l'API
         const topicData = {
             title: title,
             description: description
         };
-    
-        // Envoyer les données du sujet principal à l'API
+
+        // Envoi des données à l'API
         fetch('/api/topics', {
             method: 'POST',
             headers: {
@@ -72,25 +70,22 @@ function CreateTopic(){
             return response.json();
         })
         .then(data => {
-            // Récupérer l'ID du sujet créé
+            // Récupération des données concernant la table WORDS
             const topicId = data.id;
-
-            console.log(topicId)
-    
-            // Récupérer les mots et leurs définitions à partir des champs dynamiquement générés
-            const wordsDefinitions = [];
+            const words = [];
             for (let definition of definitions) {
                 const current = definition.key;
                 const word = document.getElementById(`word_${current}`).value;
-                const definitionText = document.getElementById(`definition_${current}`).value;
-                if (word && definitionText) { // Vérifier si les champs sont renseignés
-                    wordsDefinitions.push({ wordEn: word, wordFr: definitionText, idTopic: topicId });
+                const definition = document.getElementById(`definition_${current}`).value;
+                
+                // Vérification sur les données et mise en forme
+                // TODO : Des vérifiacations sont peut-être à ajouter
+                if (word && definition) {
+                    words.push({ wordEn: word, wordFr: definition, idTopic: topicId });
                 }
             }
 
-            console.log(wordsDefinitions);
-    
-            // Envoyer les mots et leurs définitions à l'autre API
+            // Envoi des données à l'API
             fetch('/api/words', {
                 method: 'POST',
                 headers: {
@@ -112,11 +107,7 @@ function CreateTopic(){
             console.error('Error:', error);
         });
     };
-    
-    
-
-   
-        
+  
     return (
         <div className="createTopic">
             <Navbar />
