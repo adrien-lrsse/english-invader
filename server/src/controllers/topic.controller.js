@@ -37,4 +37,4 @@ exports.createTopic = (req, res) => {
             res.status(201).json({ id: this.lastID, title, description });
         }
     });
-};
+}

@@ -57,7 +57,7 @@ function CreateTopic(){
             description: description
         };
     
-        // Envoyer les données à l'API
+        // Envoyer les données du sujet principal à l'API
         fetch('/api/topics', {
             method: 'POST',
             headers: {
@@ -66,18 +66,54 @@ function CreateTopic(){
             body: JSON.stringify(topicData)
         })
         .then(response => {
-            if (response.ok) {
-                // Afficher un message de succès ou rediriger l'utilisateur
-                console.log('Topic saved successfully');
-            } else {
-                // Afficher un message d'erreur
-                console.error('Failed to save topic');
+            if (!response.ok) {
+                throw new Error('Failed to save topic');
             }
+            return response.json();
+        })
+        .then(data => {
+            // Récupérer l'ID du sujet créé
+            const topicId = data.id;
+
+            console.log(topicId)
+    
+            // Récupérer les mots et leurs définitions à partir des champs dynamiquement générés
+            const wordsDefinitions = [];
+            for (let definition of definitions) {
+                const current = definition.key;
+                const word = document.getElementById(`word_${current}`).value;
+                const definitionText = document.getElementById(`definition_${current}`).value;
+                if (word && definitionText) { // Vérifier si les champs sont renseignés
+                    wordsDefinitions.push({ wordEn: word, wordFr: definitionText, idTopic: topicId });
+                }
+            }
+
+            console.log(wordsDefinitions);
+    
+            // Envoyer les mots et leurs définitions à l'autre API
+            fetch('/api/words', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(wordsDefinitions)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to save words');
+                }
+                console.log('Words saved successfully');
+            })
+            .catch(error => {
+                console.error('Error saving words:', error);
+            });
         })
         .catch(error => {
             console.error('Error:', error);
         });
     };
+    
+    
 
    
         
