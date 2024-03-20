@@ -1,19 +1,25 @@
-module.exports = (sequelize, Sequelize) => {
+const { DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {
     const Topic = sequelize.define('topic', {
         idTopic: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         title: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
         description: {
-            type: Sequelize.STRING
+            type: DataTypes.STRING
         },
         idUser: {
-            type: Sequelize.INTEGER
+            type: DataTypes.INTEGER
         }
+    },
+    {
+        tableName: 'TOPICS',
+        timestamps: false
     });
     return Topic;
 }   
