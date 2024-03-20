@@ -1,4 +1,6 @@
 // topic.controller.js
+const { TopicModel } = require('../models');
+
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/db.sqlite', (err) => {
@@ -9,15 +11,13 @@ const db = new sqlite3.Database('db/db.sqlite', (err) => {
       }
 });
 
-exports.getAllTopics = (req, res) => {
-    db.all('SELECT * FROM TOPICS', (err, rows) => {
-        if (err) {
-            console.error('Error getting topics:', err);
-            res.status(500).send('Error getting topics');
-        } else {
-            res.json(rows);
-        }
-    });
+exports.getAllTopics = async (req, res) => {
+    try {
+      const users = await TopicModel.findAll();
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
 }
 
 exports.createTopic = (req, res) => {

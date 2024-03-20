@@ -2,6 +2,7 @@ const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const User = require('./user.model.js');
 const Topic = require('./topic.model.js');
+const Word = require('./word.model.js');
 const e = require("express");
 
 
@@ -23,6 +24,7 @@ const sequelize = new Sequelize(
 
 const UserModel = User(sequelize);
 const TopicModel = Topic(sequelize);
+const WordModel = Word(sequelize);
 
 sequelize.sync()
   .then(() => {
@@ -35,5 +37,6 @@ sequelize.sync()
 module.exports = {
   UserModel,
   TopicModel,
+  WordModel,
   sequelize
 };

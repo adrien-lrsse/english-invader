@@ -5,8 +5,7 @@ const topicRouter = require('./routes/topics.router');
 const runningRouter = require('./routes/running.router');
 const wordRouter = require('./routes/word.router');
 const db = require('./models');
-
-//const authRouter = require('./routes/auth.router');
+const authRouter = require('./routes/auth.router');
 const app = express();
 
 app.use(cors());
@@ -21,7 +20,7 @@ app.use(express.json());
 app.use('/api/topics', topicRouter);
 app.use('/api/words', wordRouter);
 app.use('/api/running', runningRouter);
-// app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 const port = process.env.PORT || 3001;
 

@@ -6,6 +6,8 @@ import Game from './pages/Game/';
 import CreateTopic from './pages/CreateTopic/';
 import MyTopics from './pages/MyTopics';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Signin from './pages/Signin';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +17,8 @@ ReactDOM.render(
         <Route path='/game' element={<Game />} />
         <Route path='/topic' element={<CreateTopic />} />
         <Route path='/mytopics' element={<MyTopics />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </Router>
   </React.StrictMode>,
