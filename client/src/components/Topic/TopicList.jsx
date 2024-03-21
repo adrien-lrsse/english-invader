@@ -1,7 +1,6 @@
 import './topicList.css';
 
-const TopicList = (props) => {
-    const topics = props.topics;
+const TopicList = ({topics}) =>{
     return ( 
         <div className="topicList">
             { topics.map((topic) => (

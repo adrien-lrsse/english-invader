@@ -28,16 +28,20 @@ function Signin() {
     return ( 
         <div className="login">
             <Navbar />
+            <div className="container-auth">
+
             <div className="auth">
-                <h1>Authentification</h1>
+                <h1>Sign In</h1>
                 <form onSubmit={handleSubmit}>
                     <label>Mail:</label>
                     <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} required />
                     <label>Password:</label>
                     <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
                     <button>Submit</button>
+                    <a href="/signup">You don't have an account ?</a>
                 </form>
                 <Toaster />
+            </div>
             </div>
         </div>
     );

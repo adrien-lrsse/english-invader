@@ -16,6 +16,7 @@ exports.signup = async (req, res) => {
         res.status(500).json({ message: err.message });
     });
 }
+
 exports.signin = async (req, res) => {
     console.log("Email reçu dans la requête :", req.body.mail);
     UserModel.findOne({

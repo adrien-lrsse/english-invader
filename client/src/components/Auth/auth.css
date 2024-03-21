@@ -5,6 +5,7 @@
     align-items: center;
     padding: 2em;
     width: 30%;
+    justify-content: space-between;
 }
 
 .auth form{
@@ -41,4 +42,23 @@
 
 .auth form button:hover{
     background-color: #323232;
+}
+
+.auth a {
+    margin-top: 1em;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
+.auth a:hover{
+    color: #323232;
+}
+
+.container-auth{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4em;
 }

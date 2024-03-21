@@ -9,7 +9,6 @@ function Home(){
         <div className="Home">
             <Navbar />
             <div className="horizontal space_between" style={{width: '100%', marginTop:'5em'}}>
-            <Auth />
             <LaunchGame />
             </div>
             

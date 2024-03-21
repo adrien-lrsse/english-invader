@@ -29,8 +29,10 @@ function Signup() {
     return (
         <div className="login">
             <Navbar />
+            <div className="container-auth">
+
             <div className="auth">
-            <h1>SignUp</h1>
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <label>Email:</label>
                 <input type="text" required value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -39,9 +41,13 @@ function Signup() {
                 <label>Password:</label>
                 <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
                 <button>Submit</button>
+                <a href="/signin">Already have an account ?</a>
+
             </form>
             <Toaster /> 
         </div>
+        </div>
+
         </div>
     );
 }

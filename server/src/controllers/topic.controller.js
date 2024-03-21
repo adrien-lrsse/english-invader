@@ -38,3 +38,17 @@ exports.createTopic = (req, res) => {
         }
     });
 }
+
+exports.getMyTopics = async (req, res) => {
+    try {
+        const topics = await TopicModel.findAll({
+            where: {
+                idUser: req.userId
+            }
+        });
+        console.log('Topics:', topics);
+        res.json(topics);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
