@@ -23,19 +23,19 @@ exports.getAllTopics = async (req, res) => {
 exports.createTopic = (req, res) => {
 
     const { title, description } = req.body;
-
+    console.log('Title:', title);
     if (!title || !description) {
         return res.status(400).json({ message: 'Title and description are required' });
     }
 
-    db.run('INSERT INTO TOPICS (title, description, idUser) VALUES (?, ?, 1)', [title, description], function (err) {
-        if (err) {
-            console.error('Error creating topic:', err);
-            res.status(500).send('Error creating topic');
-        } else {
-            console.log(`New topic added with ID: ${this.lastID}`);
-            res.status(201).json({ id: this.lastID, title, description });
-        }
+    TopicModel.create({
+        title,
+        description,
+        idUser: req.userId
+    }).then(topic => {
+        res.status(201).json(topic);
+    }).catch(err => {
+        res.status(500).json({ message: err.message });
     });
 }
 

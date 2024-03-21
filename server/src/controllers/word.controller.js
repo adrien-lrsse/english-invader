@@ -1,4 +1,5 @@
 // word.controller.js
+const { WordModel } = require('../models');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/db.sqlite', (err) => {
@@ -10,30 +11,35 @@ const db = new sqlite3.Database('db/db.sqlite', (err) => {
 });
 
 exports.createWord = (req, res) => {
-  const wordsData = req.body;
+    console.log('Request body:', req.body);
+    const wordsData = req.body;
 
-  if (!Array.isArray(wordsData)) {
-      return res.status(400).json({ message: 'Request body should be an array of word objects' });
-  }
+    if (!Array.isArray(wordsData)) {
+        return res.status(400).json({ message: 'Request body should be an array of word objects' });
+    }
 
-  for (let word of wordsData) {
-      if (!word.word_en || !word.word_fr || !word.idTopic) {
-          return res.status(400).json({ message: 'word_en, word_fr, and idTopic are required for each word' });
-      }
-  }
+    for (let word of wordsData) {
+        console.log('Word:', word);
+        if (!word.wordEn || !word.wordFr || !word.idTopic) {
+            return res.status(400).json({ message: 'word_en, word_fr, and idTopic are required for each word' });
+        }
+    }
 
-  for (let word of wordsData) {
-      const { word_en, word_fr, idTopic } = word;
-      db.run('INSERT INTO WORDS (word_en, word_fr, idTopic) VALUES (?, ?, ?)', [word_en, word_fr, idTopic], function (err) {
-          if (err) {
-              console.error('Error creating word:', err);
-              res.status(500).send('Error creating word');
-          } else {
-              console.log(`New word added with ID: ${this.lastID}`);
-          }
-      });
-  }
-
-  res.status(201).json({ message: 'Words added successfully' });
+    for (let word of wordsData) {
+        
+        
+        WordModel.create({
+            word_en : word.wordEn,
+            word_fr : word.wordFr,
+            idTopic : word.idTopic
+        }).then(word => {
+            console.log('Word created:', word);
+            res.status(201).json(word);
+        }).catch(err => {
+            console.error('Error creating word:', err);
+            res.status(500).json({ message: err.message });
+        });
+        
+    }
 };
 

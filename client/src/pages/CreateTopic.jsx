@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import '../static/style/main.css';
 import Navbar from "../components/Navbar/Navbar";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 function CreateTopic(){
 
@@ -36,18 +38,21 @@ function CreateTopic(){
         console.log(index);
     }
 
-
     const saveTopic = () => {
         // Récupération des données concernant la table TOPICS
         const title = document.getElementById("topic").value;
         const description = document.getElementById("description").value;
-    
+
         // Vérification sur les données (peut-être pas nécessaire ici, surtout car c'est côté client donc contournable, mais c'est une bonne pratique)
         // TODO : Des vérifiacations sont peut-être à ajouter
         if (!title || !description) {
-            console.error('Title and description are required');
+            toast.error('Please fill in all fields');
             return;
         }
+
+        const headers = {
+            authorization: localStorage.getItem('token')
+        };
 
         // Création de l'objet que l'on va envoyer à l'API
         const topicData = {
@@ -55,58 +60,42 @@ function CreateTopic(){
             description: description
         };
 
-        // Envoi des données à l'API
-        fetch('/api/topics', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(topicData)
-        })
+        axios.post('/api/topics', topicData, { headers })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to save topic');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Récupération des données concernant la table WORDS
-            const topicId = data.id;
+            console.log(response);
+            const topicId = response.data.idTopic;
             const words = [];
-            for (let definition of definitions) {
-                const current = definition.key;
+            for (let def of definitions) {
+                const current = def.key;
                 const word = document.getElementById(`word_${current}`).value;
                 const definition = document.getElementById(`definition_${current}`).value;
-                
+
                 // Vérification sur les données et mise en forme
                 // TODO : Des vérifiacations sont peut-être à ajouter
                 if (word && definition) {
                     words.push({ wordEn: word, wordFr: definition, idTopic: topicId });
                 }
             }
-
-            // Envoi des données à l'API
-            fetch('/api/words', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(wordsDefinitions)
-            })
+            console.log(words);
+            axios.post('/api/words', words, { headers })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to save words');
-                }
-                console.log('Words saved successfully');
-            })
+                console.log(response.data);
+                toast.success('Topic and words saved successfully');
+            }
+            )
             .catch(error => {
-                console.error('Error saving words:', error);
-            });
+                console.error(error);
+                toast.error('Failed to save words');
+            }
+            );
         })
         .catch(error => {
-            console.error('Error:', error);
-        });
-    };
+            console.error(error);
+            toast.error('Failed to save topic');
+        }
+        );
+    }
+
   
     return (
         <div className="createTopic">
@@ -134,6 +123,7 @@ function CreateTopic(){
                 </div>
                 <button id="createTopic" className="button" onClick={addDefinition}>Add a word</button>
             </div>
+            <Toaster />
         </div>
     )
 }

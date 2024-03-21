@@ -5,6 +5,6 @@ const { authJwt } = require('../middleware/index');
 
 
 router.get('/', authJwt.verifyToken, TopicController.getMyTopics);
-router.post('/', TopicController.createTopic);
+router.post('/', authJwt.verifyToken, TopicController.createTopic);
 
 module.exports = router;
