@@ -16,6 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/game' element={<Game />} />
+        <Route path='/game/:idTopic'element={<Game />} />
         <Route path='/topic' element={<CreateTopic />} />
         <Route path='/mytopics' element={<MyTopics />} />
         <Route path='/signin' element={<Signin />} />

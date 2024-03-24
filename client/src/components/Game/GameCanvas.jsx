@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import axios from "axios";
 
 class CanvasWord {
   constructor(unknown, guess, posX, posY) {
@@ -55,6 +55,37 @@ class GameCanvas extends React.Component {
       validated: [],
       inGame: []
     };
+
+    if (this.props.idTopic){
+      console.log("hello");
+      console.log(this.props.idTopic);
+      this.fetchWords();
+    }
+  }
+
+  fetchWords = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const headers = {
+        authorization: token,
+      };
+
+      const response = await axios.get(`/api/words/${this.props.idTopic}`, { headers });
+      console.log(response.data);
+      const newDictionary = new Map();
+      if (response.data.length === 0) {
+        window.location.href = '/game';
+      }
+      for (let word of response.data) {
+        newDictionary.set(word.word_en, word.word_fr);
+      }
+      this.setState({ dictionary: newDictionary });
+    } catch (error) {
+      // go to game with default dictionary
+      window.location.href = '/game';
+      console.error(error);
+    }
   }
 
   componentDidMount() {
@@ -66,7 +97,7 @@ class GameCanvas extends React.Component {
     ctx.fillText("test", 150,150);
     
     this.gameInterval = setInterval(() => this.game(ctx), 20);
-    this.displayInterval = setInterval(() => this.display(ctx), 1);
+    this.displayInterval = setInterval(() => this.display(ctx), 0.1);
   }
 
   componentWillUnmount() {

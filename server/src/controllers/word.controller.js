@@ -1,5 +1,5 @@
 // word.controller.js
-const { WordModel } = require('../models');
+const { WordModel, TopicModel } = require('../models');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/db.sqlite', (err) => {
@@ -27,7 +27,6 @@ exports.createWord = (req, res) => {
 
     for (let word of wordsData) {
         
-        
         WordModel.create({
             word_en : word.wordEn,
             word_fr : word.wordFr,
@@ -41,5 +40,36 @@ exports.createWord = (req, res) => {
         });
         
     }
+};
+
+exports.getWordsByTopic = (req, res) => {
+    const idTopic = req.params.idTopic;
+    console.log('idTopic:', idTopic);
+
+    TopicModel.findOne({
+        where: {
+            idTopic: idTopic
+        }
+    }).then(topic => {
+        console.log('Topic:', topic);
+        if (topic.idUser !== req.userId) {
+            return res.status(403).json({ message: 'Unauthorized' });
+        }
+        WordModel.findAll({
+            where: {
+                idTopic: idTopic
+            }
+        }).then(words => {
+            console.log('Words:', words);
+            res.status(200).json(words);
+        }).catch(err => {
+            console.error('Error getting words:', err);
+            res.status(500).json({ message: err.message });
+        });
+    }).catch(err => {
+        console.error('Error getting topic:', err);
+        res.status(500).json({ message: err.message });
+    });
+
 };
 
