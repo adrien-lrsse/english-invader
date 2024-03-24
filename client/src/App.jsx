@@ -8,6 +8,7 @@ import MyTopics from './pages/MyTopics';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
+import GameCanvas from './components/Game/GameCanvas';
 
 ReactDOM.render(
   <React.StrictMode>

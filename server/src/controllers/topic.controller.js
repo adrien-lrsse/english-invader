@@ -23,7 +23,6 @@ exports.getAllTopics = async (req, res) => {
 exports.createTopic = (req, res) => {
 
     const { title, description } = req.body;
-    console.log('Title:', title);
     if (!title || !description) {
         return res.status(400).json({ message: 'Title and description are required' });
     }
@@ -46,7 +45,6 @@ exports.getMyTopics = async (req, res) => {
                 idUser: req.userId
             }
         });
-        console.log('Topics:', topics);
         res.json(topics);
     } catch (error) {
         res.status(500).json({ message: error.message });
