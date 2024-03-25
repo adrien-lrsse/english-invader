@@ -1,11 +1,28 @@
+@font-face {
+    font-family: Helsinki;
+    src: url(../../static/font/Helsinkifjes-Regular.otf);
+  }
+
+  @font-face {
+    font-family: Kaio-Bold;
+    src: url(../../static/font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+  }
+
+  @font-face {
+    font-family: LTSaeada;
+    src: url(../../static/font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+  }
+  
+
 .navbar  {
     background-image: url('../../static/figures/background.webp');
     margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 5px white solid;
+    border-bottom: 0px white solid;
     width: 100%;
+    box-shadow: -5px 10px 30px rgb(255, 255, 255);
 }
 
 .navbar .links{
@@ -19,11 +36,18 @@
 .navbar .links a{
     color: white;
     text-decoration: none;
-    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-family: 'LTSaeada';
+    font-size: 1.5em;
+    color: wheat;
 }
 
 .navbar .links a:hover{
-    background-color: #323232;
+    border-bottom: 2px solid white;
+    color: white;
 }
 
 .navbar h1{
@@ -31,6 +55,7 @@
     text-align: center;
     font-size: 3em;
     padding-left: 1em;
+    font-family: 'Kaio-Bold';
 }
 
 .navbar h1 a{

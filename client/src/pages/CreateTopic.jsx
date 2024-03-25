@@ -4,6 +4,7 @@ import '../static/style/main.css';
 import Navbar from "../components/Navbar/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import '../static/style/topicCreate.css';
 
 function CreateTopic(){
 
@@ -12,16 +13,10 @@ function CreateTopic(){
 
 
     const definition_section = ({ key, onDelete }) => (
-        <div key={key}>
-            <input id={`word_${key}`} className="input_answer" placeholder="word" />
-            <input id={`definition_${key}`} className="input_answer" placeholder="definition" />
-            <button onClick={() => onDelete(key)} className="deleteButton">
-                <span className="deleteButtonSpan">CONFIRM DELETE</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-        </button>
-
+        <div key={key} className="sectionDef">
+            <input id={`word_${key}`} className="inputAnswer" placeholder="word" />
+            <input id={`definition_${key}`} className="inputAnswer" placeholder="definition" />
+            <button onClick={() => onDelete(key)} className="add_word">delete</button>
         </div>
     );
 
@@ -101,27 +96,26 @@ function CreateTopic(){
         <div className="createTopic">
             <Navbar />
             <div className="centering_horizontal centering_vertical vertical">
-                <h1>Create a new topic</h1>
+                <h1 className="topic_title">create a new topic</h1>
                 <div className="horizontal centering_vertical">
-                    <input id="topic" className="input_answer" placeholder="topic" />
-                    <input id="description" className="input_answer" placeholder="description" />
-                    <button onClick={saveTopic} id="save" className="saveButton">
-                        <span>SAVE</span>
-                    </button>
+                    <input id="topic" className="input_answer" placeholder="topic title" />
+                    <input id="description" className="input_answer" placeholder="topic description" />
                 </div>
-                
+                <button onClick={saveTopic} id="save" className="add_word">save</button>
+                <p className="line"></p>
                 {/* <input id="description" className="input_answer" placeholder="description" /> */}
                 
                 <div id="definition_section">
-                <div className="horizontal">
-                    <h2 style={{'marginLeft' : '1em', 'width' : '480px'}}>Word</h2>
-                    <h2 style={{'marginLeft' : '3em', 'width' : '480px'}}>Definition</h2>
-                </div>
+                    
+                        <h2>write your topic words</h2>
+                        
+                   
+                    
                     {definitions.map((definition) => {
                         return definition;
                     })}
                 </div>
-                <button id="createTopic" className="button" onClick={addDefinition}>Add a word</button>
+                <button id="createTopic" className="add_word" onClick={addDefinition}>add a word</button>
             </div>
             <Toaster />
         </div>
