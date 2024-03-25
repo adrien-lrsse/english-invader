@@ -126,7 +126,7 @@ class GameCanvas extends React.Component {
       if (this.state.inGame[i].posY > this.gameCanvas.current.height) {
         this.setState((prevState) => ({ life: prevState.life - 1,
           failed: [...prevState.failed, prevState.inGame[i]]}));
-        this.lifeElement.current.innerHTML = `Life: ${this.state.life}`;
+        this.lifeElement.current.innerHTML = `❤️ Life : ${this.state.life}`;
         console.log(this.state.inGame[i])
       } else {
         inGameTemp.push(this.state.inGame[i]);
@@ -175,7 +175,7 @@ class GameCanvas extends React.Component {
           score : prevState.score + 1
         }),
         () => {
-          this.scoreElement.current.innerHTML = `Score: ${this.state.score}`;
+          this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
         });
            
         
@@ -211,12 +211,12 @@ class GameCanvas extends React.Component {
           </div>
           <div className="vertical vertical_item_game" style={{width: "45%"}}>
           <div className="horizontal item_game" >
-              <h2 ref={this.lifeElement}>Life: {this.state.life}</h2>
-              <h2 ref={this.scoreElement}>Score: {this.state.score}</h2>
+              <h2 ref={this.lifeElement}>❤️ Life : {this.state.life}</h2>
+              <h2 ref={this.scoreElement}>🎯 Score : {this.state.score}</h2>
               
           </div>
           <div className="vertical" style={{marginLeft : '1em'}}>
-            <p style={{ color: "white" }}>Failed words</p>
+            <p style={{ color: "white" }}><u>Failed words :</u></p>
             {this.state.failed.map((item, i) => (
               <div className="horizontal" key={i} style={{marginLeft : '1em'}}>
                 <p style={{ color: "white" , marginRight:'5px'}}>(🇬🇧) <b>{item.unknown}</b> has for definition </p>
