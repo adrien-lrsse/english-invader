@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import './gameCanvas.css';
 
 class CanvasWord {
   constructor(unknown, guess, posX, posY) {
@@ -200,12 +201,12 @@ class GameCanvas extends React.Component {
 
   render() {
     return (
-      <div className="horizontal">
-        <div className="vertical">
-        <canvas ref={this.gameCanvas} id="gameCanvas" width={480} height={600} />
+      <div className="horizontal " style={{width: "100%"}} >
+        <div className="vertical game_canvas" style={{width: "55%"}}>
+        <canvas ref={this.gameCanvas}  id="gameCanvas" width={560} height={700} />
         <input ref={this.proposal} type="text"  className='input_answer' onKeyDown={this.handleProposalKeyDown} placeholder="guess a word" />
         </div>
-        <div className="horizontal">
+        <div className="horizontal item_game" style={{width: "45%"}}>
             <h2 ref={this.lifeElement}>Life: {this.state.life}</h2>
             <h2 ref={this.scoreElement}>Score: {this.state.score}</h2>
         </div>
