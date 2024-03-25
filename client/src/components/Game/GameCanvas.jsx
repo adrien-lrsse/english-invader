@@ -216,11 +216,10 @@ class GameCanvas extends React.Component {
               
           </div>
           <div className="vertical" style={{marginLeft : '1em'}}>
-            <p style={{ color: "white" }}><u>Failed words :</u></p>
             {this.state.failed.map((item, i) => (
-              <div className="horizontal" key={i} style={{marginLeft : '1em'}}>
-                <p style={{ color: "white" , marginRight:'5px'}}>(🇬🇧) <b>{item.unknown}</b> has for definition </p>
-                <p style={{ color: "white" }}><b>{item.guess}</b> (🇫🇷)</p>
+              <div className="horizontal failed_guess" key={i} style={{marginLeft : '1em'}}>
+                <p>(🇬🇧) <b>{item.unknown}</b> has for definition &nbsp;</p>
+                <p><b>{item.guess}</b> (🇫🇷)</p>
               </div>
             ))}
           </div>

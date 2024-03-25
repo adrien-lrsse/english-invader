@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import TopicList from "../components/Topic/TopicList";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import '../static/style/myTopic.css';
 
 
 function MyTopics(){
@@ -37,12 +38,9 @@ function MyTopics(){
     return (
         <div className="centering_horizontal centering_vertical vertical">
             <Navbar />
-            <h1>My topics</h1>
+            <h1 className="title">my topics</h1>
              <TopicList topics={topics} />
-            <button className="saveButton" onClick={() => window.location.href = "/topic"}>
-                <span>Create a new topic</span>
-                
-            </button>
+            <button className="add_word" onClick={() => window.location.href = "/topic"}>create a new topic</button>
         </div>
     )
 }

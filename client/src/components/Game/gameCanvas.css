@@ -1,5 +1,21 @@
+@font-face {
+    font-family: Helsinki;
+    src: url(../../static/font/Helsinkifjes-Regular.otf);
+  }
+
+  @font-face {
+    font-family: Kaio-Bold;
+    src: url(../../static/font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+  }
+
+  @font-face {
+    font-family: LTSaeada;
+    src: url(../../static/font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+  }
+  
+
 #gameCanvas{
-    border: 1px solid white;
+    border: 4px solid wheat;
     background-image: url('../../static/figures/background.webp');
     background-size: cover;
     background-repeat: no-repeat;
@@ -9,11 +25,11 @@
 
 .input_answer {
     margin-top: 1em;
-    width: 480px;
+    width: 55%;
     color: white;
     background: black;
     border : none;
-    border-bottom: 1px solid white;
+    border-bottom: 4px solid wheat;
     font-size: 1.5em;
     outline: none;
     margin-left: 1em;
@@ -26,6 +42,7 @@
     justify-content: left;
     align-items:first baseline;
     margin-bottom: 1em;
+    margin-left: 1em;
 }
 
 .game_canvas{
@@ -38,12 +55,23 @@
 }
 
 .item_game h2{
-    width: 20%;
+    width: fit-content;
     text-align: center;
+    font-family: 'LTSaeada';
+    padding-left: 1em;
+    padding-right: 1em;
+    color: wheat;
+    font-size: 1.75em;
 }
 
 .vertical_item_game{
     margin-top: 1em;
-    border-left: solid 1px white;
+    border-left: solid 4px wheat;
 
+}
+
+.failed_guess{
+    font-family: 'LTSaeada';
+    color: wheat;
+    font-size: 1.5em;
 }
