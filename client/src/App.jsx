@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import GameCanvas from './components/Game/GameCanvas';
+import EditTopic from './pages/EditTopic';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path='/game' element={<Game />} />
         <Route path='/game/:idTopic'element={<Game />} />
         <Route path='/topic' element={<CreateTopic />} />
+        <Route path="/edit-topic/:topicId" element={<EditTopic />} />
         <Route path='/mytopics' element={<MyTopics />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />

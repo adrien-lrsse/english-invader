@@ -14,11 +14,11 @@ module.exports = (sequelize) => {
     },
     word_fr: {
       type: DataTypes.STRING,
-        allowNull: false
+      allowNull: false
     },
     idTopic: {
       type: DataTypes.INTEGER,
-        allowNull: false
+      allowNull: false
     }
   }, {
     tableName: 'WORDS',

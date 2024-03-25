@@ -73,7 +73,7 @@ function CreateTopic(){
                 // Vérification sur les données et mise en forme
                 // TODO : Des vérifiacations sont peut-être à ajouter
                 if (word && definition) {
-                    words.push({ wordEn: word, wordFr: definition, idTopic: topicId });
+                    words.push({ word_en: word, word_fr: definition, idTopic: topicId });
                 }
             }
             console.log(words);

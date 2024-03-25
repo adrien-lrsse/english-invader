@@ -11,12 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-
-
-
-
-
 app.use('/api/topics', topicRouter);
 app.use('/api/words', wordRouter);
 app.use('/api/running', runningRouter);

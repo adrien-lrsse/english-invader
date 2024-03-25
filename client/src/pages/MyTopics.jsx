@@ -38,10 +38,9 @@ function MyTopics(){
         <div className="centering_horizontal centering_vertical vertical">
             <Navbar />
             <h1>My topics</h1>
-             <TopicList topics={topics} />
+            <TopicList topics={topics} />
             <button className="saveButton" onClick={() => window.location.href = "/topic"}>
                 <span>Create a new topic</span>
-                
             </button>
         </div>
     )
