@@ -44,8 +44,6 @@ exports.createWord = (req, res) => {
 
 exports.getWordsByTopic = (req, res) => {
     const idTopic = req.params.idTopic;
-    console.log('idTopic:', idTopic);
-
     TopicModel.findOne({
         where: {
             idTopic: idTopic
@@ -60,7 +58,6 @@ exports.getWordsByTopic = (req, res) => {
                 idTopic: idTopic
             }
         }).then(words => {
-            console.log('Words:', words);
             res.status(200).json(words);
         }).catch(err => {
             console.error('Error getting words:', err);

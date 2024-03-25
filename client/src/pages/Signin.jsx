@@ -16,9 +16,8 @@ function Signin() {
                 mail: email,
                 password: password
             });
-            console.log(response.data);
-            toast.success(response.data.message);
             localStorage.setItem('token', response.data.accessToken);
+            window.location.href = '/';
             } catch (error) {
                 console.error(error);
                 toast.error(error.response.data.message);

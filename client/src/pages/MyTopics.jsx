@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import TopicList from "../components/Topic/TopicList";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import '../static/style/myTopic.css';
 
 
 function MyTopics(){

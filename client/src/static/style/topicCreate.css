@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'LT Saeada';
+    src: url(../font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+}
+
+@font-face {
+    font-family: 'Kaiona-Regular';
+    src: url(../font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+}
+
+.title_description h2{
+    font-family: 'LT Saeada';
+    width: 40%;
+    text-align: left;
+}
+.title_description{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+}
+
+.topic_title{
+    margin-top: 1.5em;
+    font-family: 'Kaiona-Regular';
+    font-size: 3em;
+    color: wheat;
+    margin-bottom: 20px;
+}
+
+.add_word{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    background-color: black;
+    border: none;
+    border: 1px solid wheat;
+    color: wheat;
+    width: 20%;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    font-family: 'LT Saeada';
+}
+
+
+.add_word:hover{
+    font-family: 'Kaiona-Regular';
+    background-color: wheat;
+    color: black;
+    cursor: pointer;
+}
+
+#topic{
+    font-family: 'LT Saeada';
+}
+
+#description{
+    font-family: 'LT Saeada';
+}
+
+.line{
+    border-top: 10px solid rgb(194, 194, 194);
+    border-style: dotted;
+    width: 35%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.inputAnswer{
+    width: 30%;
+    background-color: black;
+    border: none;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    font-size: 1.5em;
+    font-family: 'LT Saeada';
+    color: white;
+    outline: none;
+    height: fit-content;
+    padding-bottom: 0.5em;
+}
+
+.sectionDef{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    
+}
+
+#definition_section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    
+}
+
+#definition_section h2{
+    font-family: 'Kaiona-Regular';
+    color: wheat;
+    margin-bottom: 0.5em;
+    font-size: 2em;
+    text-align: center;
+}

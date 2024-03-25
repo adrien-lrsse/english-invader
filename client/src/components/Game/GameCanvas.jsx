@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import './gameCanvas.css';
 
 class CanvasWord {
   constructor(unknown, guess, posX, posY) {
@@ -53,7 +54,8 @@ class GameCanvas extends React.Component {
         ["love", "amour"]
       ]),
       validated: [],
-      inGame: []
+      inGame: [],
+      failed : []
     };
 
     if (this.props.idTopic){
@@ -121,16 +123,18 @@ class GameCanvas extends React.Component {
     const inGameTemp = [];
     for (let i = 0; i < this.state.inGame.length; i++) {
       this.state.inGame[i].updatePos();
-      if (this.state.inGame[i].posY >= this.gameCanvas.current.height) {
-        this.setState((prevState) => ({ life: prevState.life - 1 }));
-        this.lifeElement.current.innerHTML = `Life: ${this.state.life}`;
+      if (this.state.inGame[i].posY > this.gameCanvas.current.height) {
+        this.setState((prevState) => ({ life: prevState.life - 1,
+          failed: [...prevState.failed, prevState.inGame[i]]}));
+        this.lifeElement.current.innerHTML = `❤️ Life : ${this.state.life}`;
+        console.log(this.state.inGame[i])
       } else {
         inGameTemp.push(this.state.inGame[i]);
       }
     }
 
     this.setState({ inGame: inGameTemp });
-
+    console.log(this.state.failed);
     if ((this.state.inGame.length === 0 && this.state.dictionary.size === 0) || this.state.life === 0) {
       this.endGameExecution(ctx);
     }
@@ -171,7 +175,7 @@ class GameCanvas extends React.Component {
           score : prevState.score + 1
         }),
         () => {
-          this.scoreElement.current.innerHTML = `Score: ${this.state.score}`;
+          this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
         });
            
         
@@ -189,7 +193,7 @@ class GameCanvas extends React.Component {
       ctx.fillStyle = 'white';
       ctx.clearRect(0, 0, this.gameCanvas.current.width, this.gameCanvas.current.height);
       ctx.font = '30px Arial';
-      ctx.fillText('You win !', (this.gameCanvas.current.width - ctx.measureText('You win !').width) / 2, this.gameCanvas.current.height / 2);
+      ctx.fillText('You won !', (this.gameCanvas.current.width - ctx.measureText('You win !').width) / 2, this.gameCanvas.current.height / 2);
     } else {
       ctx.fillStyle = 'white';
       ctx.clearRect(0, 0, this.gameCanvas.current.width, this.gameCanvas.current.height);
@@ -198,20 +202,33 @@ class GameCanvas extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="horizontal">
-        <div className="vertical">
-        <canvas ref={this.gameCanvas} id="gameCanvas" width={480} height={600} />
-        <input ref={this.proposal} type="text"  className='input_answer' onKeyDown={this.handleProposalKeyDown} placeholder="guess a word" />
+    render() {
+      return (
+        <div className="horizontal " style={{width: "100%"}} >
+          <div className="vertical game_canvas" style={{width: "55%"}}>
+          <canvas ref={this.gameCanvas}  id="gameCanvas" width={560} height={700} />
+          <input ref={this.proposal} type="text"  className='input_answer' onKeyDown={this.handleProposalKeyDown} placeholder="guess a word" />
+          </div>
+          <div className="vertical vertical_item_game" style={{width: "45%"}}>
+          <div className="horizontal item_game" >
+              <h2 ref={this.lifeElement}>❤️ Life : {this.state.life}</h2>
+              <h2 ref={this.scoreElement}>🎯 Score : {this.state.score}</h2>
+              
+          </div>
+          <div className="vertical" style={{marginLeft : '1em'}}>
+            {this.state.failed.map((item, i) => (
+              <div className="horizontal failed_guess" key={i} style={{marginLeft : '1em'}}>
+                <p>(🇬🇧) <b>{item.unknown}</b> has for definition &nbsp;</p>
+                <p><b>{item.guess}</b> (🇫🇷)</p>
+              </div>
+            ))}
+          </div>
+          
         </div>
-        <div className="horizontal">
-            <h2 ref={this.lifeElement}>Life: {this.state.life}</h2>
-            <h2 ref={this.scoreElement}>Score: {this.state.score}</h2>
         </div>
-      </div>
-    );
+      );
+    }
   }
-}
+
 
 export default GameCanvas;
