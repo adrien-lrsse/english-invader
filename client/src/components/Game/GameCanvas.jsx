@@ -189,7 +189,7 @@ class GameCanvas extends React.Component {
       ctx.fillStyle = 'white';
       ctx.clearRect(0, 0, this.gameCanvas.current.width, this.gameCanvas.current.height);
       ctx.font = '30px Arial';
-      ctx.fillText('You win !', (this.gameCanvas.current.width - ctx.measureText('You win !').width) / 2, this.gameCanvas.current.height / 2);
+      ctx.fillText('You won !', (this.gameCanvas.current.width - ctx.measureText('You win !').width) / 2, this.gameCanvas.current.height / 2);
     } else {
       ctx.fillStyle = 'white';
       ctx.clearRect(0, 0, this.gameCanvas.current.width, this.gameCanvas.current.height);

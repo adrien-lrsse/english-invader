@@ -59,3 +59,28 @@ exports.signin = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
   };
+
+
+  exports.getUser = async (req, res) => {
+    console.log("req.userId", req.userId);
+
+    UserModel.findOne({
+      where: {
+        idUser: req.userId
+      }
+
+    }).then(user => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+  
+      res.status(200).send({
+        id: user.idUser,
+        pseudo: user.pseudo,
+        email: user.email,
+        accessToken: req.headers.authorization,
+      });
+    }).catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+  }
