@@ -20,7 +20,7 @@ exports.createWord = (req, res) => {
 
     for (let word of wordsData) {
         console.log('Word:', word);
-        if (!word.wordEn || !word.wordFr || !word.idTopic) {
+        if (!word.word_en || !word.word_fr || !word.idTopic) {
             return res.status(400).json({ message: 'word_en, word_fr, and idTopic are required for each word' });
         }
     }
@@ -28,8 +28,8 @@ exports.createWord = (req, res) => {
     for (let word of wordsData) {
         
         WordModel.create({
-            word_en : word.wordEn,
-            word_fr : word.wordFr,
+            word_en : word.word_en,
+            word_fr : word.word_fr,
             idTopic : word.idTopic
         }).then(word => {
             console.log('Word created:', word);
