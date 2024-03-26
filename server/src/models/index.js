@@ -5,6 +5,7 @@ const Topic = require('./topic.model.js');
 const Word = require('./word.model.js');
 const Organization = require('./organizations.model.js');
 const LinkTopicOrga = require('./link_topic_orga.model.js');
+const FollowedOrga = require('./followed_orga.model.js');
 const e = require("express");
 
 
@@ -29,6 +30,7 @@ const TopicModel = Topic(sequelize);
 const WordModel = Word(sequelize);
 const OrganizationModel = Organization(sequelize);
 const LinkTopicOrgaModel = LinkTopicOrga(sequelize);
+const FollowedOrgaModel = FollowedOrga(sequelize);
 
 sequelize.sync()
   .then(() => {
@@ -44,5 +46,6 @@ module.exports = {
   WordModel,
   OrganizationModel,
   LinkTopicOrgaModel,
+  FollowedOrgaModel,
   sequelize
 };

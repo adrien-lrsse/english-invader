@@ -1,5 +1,6 @@
 const { OrganizationModel } = require('../models');
 const LinkTopicOrgaController = require('./link_topic_orga.controller');
+const FollowedOrgaController = require('./followed_orga.controller');
 
 exports.create = async (req, res) => {
     OrganizationModel.create({
@@ -28,3 +29,30 @@ exports.findAll = async (req, res) => {
     });
 }
 
+
+exports.getAllOrganizations = async (req, res) => {
+    try {
+        const organizations = await OrganizationModel.findAll();
+        res.json(organizations);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+exports.followOrganization = async (req, res) => {
+    console.log('Request body:', req.body);
+    const idOrga = req.body.idOrga;
+    OrganizationModel.findOne({
+        where: {
+            idOrga: idOrga
+        }
+    }).then(async organization => {
+        if (!organization) {
+            return res.status(404).json({ message: 'Organization not found' });
+        }
+        const followedOrga = await FollowedOrgaController.createLink(req, res);
+        res.status(200).json({ message: "Organization followed successfully!" });
+    }).catch(err => {
+        res.status(500).json({ message: err.message });
+    });
+}

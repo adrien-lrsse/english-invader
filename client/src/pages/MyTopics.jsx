@@ -41,6 +41,7 @@ function MyTopics(){
             <h1 className="title">my topics</h1>
              <TopicList topics={topics} />
             <button className="add_word" onClick={() => window.location.href = "/topic"}>create a new topic</button>
+            <h1 className="title">topics from my followed organizations</h1>
         </div>
     )
 }
