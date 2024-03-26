@@ -1,0 +1,160 @@
+@font-face {
+    font-family: 'LT Saeada';
+    src: url(../font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+}
+
+@font-face {
+    font-family: 'Kaiona-Regular';
+    src: url(../font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+}
+
+
+.title{
+    font-family: 'Kaiona-Regular';
+    width:auto;
+    text-align: center;
+    margin-top: 1.5em;
+    color: wheat;
+}
+
+.divOrga{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.myOrganizations{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: center;
+    width: 100%;
+}
+
+.buttonAction{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    background-color: black;
+    border: none;
+    border: 1px solid wheat;
+    color: wheat;
+    width: 40%;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    font-family: 'LT Saeada';
+}
+
+
+.buttonAction:hover{
+    font-family: 'Kaiona-Regular';
+    background-color: wheat;
+    color: black;
+    cursor: pointer;
+}
+
+.info_orga{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    justify-content: space-around;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-items: center;
+}
+
+.info_orga input{
+    background-color: black;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid wheat;
+    color: white;
+    text-align: left;
+    width: 30%;
+    height: 2em;
+    font-size: 1.5em;
+    font-family: 'LT Saeada';
+}
+
+.subtitle{
+    font-family: 'Kaiona-Regular';
+    width:auto;
+    text-align: center;
+    margin-top: 1.5em;
+    color: wheat;
+    font-size: 2em;
+}
+
+.topicSelection{
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    background-color: black;
+    border: none;
+    color: wheat;
+    width: 80%;
+    margin-left: 10%;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    font-family: 'LT Saeada';
+}
+
+
+.topicSelection p {
+    color: white;
+}
+
+.topicSelection:hover{
+    background-color: rgb(70, 63, 51) ;
+    color: wheat;
+    cursor: pointer;
+    
+}
+
+.topicSelection input[type="checkbox"]{
+    outline: none;
+    background-color: wheat;
+    border: none;
+    border-bottom: 1px solid wheat;
+    color: white;
+    text-align: left;
+    width: 10%;
+    height: 0.75em;
+    font-size: 1.5em;
+    font-family: 'LT Saeada';
+}
+
+.buttonSaveNewOrga{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    margin-left: 10%;
+    background-color: black;
+    border: none;
+    border: 1px solid wheat;
+    color: wheat;
+    width: 80%;
+    height: 2em;
+    font-size: 1.5em;
+    text-align: center;
+    font-family: 'LT Saeada';
+}
+
+.buttonSaveNewOrga:hover{
+    font-family: 'Kaiona-Regular';
+    background-color: wheat;
+    color: black;
+    cursor: pointer;
+}

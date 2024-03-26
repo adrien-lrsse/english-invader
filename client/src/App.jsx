@@ -9,7 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import GameCanvas from './components/Game/GameCanvas';
-
+import MyOrganizations from './pages/MyOrganizations';
+import NewOrganization from './pages/newOrganization';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
@@ -21,6 +22,8 @@ ReactDOM.render(
         <Route path='/mytopics' element={<MyTopics />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/myorganizations' element={<MyOrganizations />} />
+        <Route path='/neworganization' element={<NewOrganization />} />
       </Routes>
     </Router>
   </React.StrictMode>,
