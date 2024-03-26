@@ -9,13 +9,10 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import GameCanvas from './components/Game/GameCanvas';
-<<<<<<< HEAD
 import MyOrganizations from './pages/MyOrganizations';
 import NewOrganization from './pages/newOrganization';
-=======
 import EditTopic from './pages/EditTopic';
 
->>>>>>> c230947043fbbc8e28abd109add5d382bb301e37
 ReactDOM.render(
   <React.StrictMode>
     <Router>

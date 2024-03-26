@@ -2,14 +2,6 @@
 const { TopicModel, WordModel } = require('../models');
 
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db/db.sqlite', (err) => {
-    if (err) {
-        console.error('Error connecting to database:', err);
-      } else {
-        console.log('Connected to database');
-      }
-});
 
 exports.getAllTopics = async (req, res) => {
     try {

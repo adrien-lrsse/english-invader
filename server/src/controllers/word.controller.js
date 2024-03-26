@@ -1,14 +1,7 @@
 // word.controller.js
 const { WordModel, TopicModel } = require('../models');
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db/db.sqlite', (err) => {
-    if (err) {
-        console.error('Error connecting to database:', err);
-      } else {
-        console.log('Connected to database');
-      }
-});
+
 
 exports.createWord = (req, res) => {
     console.log('Request body:', req.body);
