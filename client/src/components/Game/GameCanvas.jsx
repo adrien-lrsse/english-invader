@@ -55,7 +55,7 @@ class GameCanvas extends React.Component {
       ]),
       validated: [],
       inGame: [],
-      failed : []
+      failed : [],
     };
 
     if (this.props.idTopic){

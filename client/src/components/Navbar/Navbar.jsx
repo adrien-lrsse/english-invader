@@ -6,6 +6,7 @@ const Navbar = () => {
             <h1><a href='/'>🇬🇧 english invader.</a></h1>
             <div className="links">
             <a href="/">Home</a>
+            <a href="/explore">Explore</a>
                 {localStorage.getItem('token') ? (
                     <>
                     <a href="/myorganizations">My Organizations</a>

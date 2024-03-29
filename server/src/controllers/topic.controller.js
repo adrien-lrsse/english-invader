@@ -1,5 +1,5 @@
 // topic.controller.js
-const { TopicModel, WordModel } = require('../models');
+const { TopicModel, WordModel, LinkTopicOrgaModel, FollowedOrgaModel } = require('../models');
 
 
 
@@ -45,7 +45,7 @@ exports.getMyTopics = async (req, res) => {
 
 exports.getTopicDetails = async (req, res) => {
     const idTopic = req.params.topicId;
-    console.log('idTopic:', idTopic);
+    console.log('idTopic:+++', idTopic);
 
     TopicModel.findOne({
         where: {
@@ -106,3 +106,34 @@ exports.deleteTopic = async (req, res) => {
 };
 
 
+exports.getFollowedTopics = async (req, res) => {
+    try {
+        const followedOrgas = await FollowedOrgaModel.findAll({
+            where: {
+                idUser: req.userId
+            }
+        });
+
+        const idOrgas = followedOrgas.map(followedOrga => followedOrga.idOrga);
+
+        const linkTopicOrgas = await LinkTopicOrgaModel.findAll({
+            where: {
+                idOrga: idOrgas
+            }
+        });
+
+        const idTopics = linkTopicOrgas.map(linkTopicOrga => linkTopicOrga.idTopic);
+
+        const topics = await TopicModel.findAll({
+            where: {
+                idTopic: idTopics
+            }
+        });
+
+        console.log('Topics:', topics);
+
+        res.json(topics);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}

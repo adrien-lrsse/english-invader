@@ -29,7 +29,7 @@ function EditTopic() {
                     return;
                 }
         
-                const topicResponse = await axios.get(`/api/topics/${topicId}`, { headers });
+                const topicResponse = await axios.get(`/api/topics/topicdetail/${topicId}`, { headers });
                 console.log(topicResponse.data);
         
                 const wordsResponse = await axios.get(`/api/words/${topicId}`, { headers });
@@ -111,7 +111,7 @@ function EditTopic() {
     };    
 
     const deleteTopic = (topicId, headers) => {
-        return axios.delete(`/api/topics/${topicId}`, { headers })
+        return axios.delete(`/api/topics/topicdetail/${topicId}`, { headers })
         .catch(error => {
             console.error(error);
             toast.error('Failed to delete existing topic');

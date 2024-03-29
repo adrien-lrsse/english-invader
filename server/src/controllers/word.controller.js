@@ -1,5 +1,5 @@
 // word.controller.js
-const { WordModel, TopicModel } = require('../models');
+const { WordModel, TopicModel, FollowedOrgaModel } = require('../models');
 
 
 
@@ -43,14 +43,15 @@ exports.getWordsByTopic = (req, res) => {
         }
     }).then(topic => {
         console.log('Topic:', topic);
-        if (topic.idUser !== req.userId) {
-            return res.status(403).json({ message: 'Unauthorized' });
+        if (!topic) {
+            return res.status(404).json({ message: 'Topic not found' });
         }
         WordModel.findAll({
             where: {
                 idTopic: idTopic
             }
-        }).then(words => {
+        }
+        ).then(words => {
             res.status(200).json(words);
         }).catch(err => {
             console.error('Error getting words:', err);
