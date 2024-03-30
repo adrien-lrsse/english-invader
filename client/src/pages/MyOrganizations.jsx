@@ -40,7 +40,7 @@ function MyOrganizations(){
                 console.error(error);
             });
 
-    }, []);
+    }, [followedOrganizations]);
 
     return (
         <div>
