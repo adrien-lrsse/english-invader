@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'LT Saeada';
+    src: url(../font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+}
+
+@font-face {
+    font-family: 'Kaiona-Regular';
+    src: url(../font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+}
+
+
+.inputSearch{
+    background-color: black;
+    font-size: 1.5em;
+    color: white;
+    outline: none;
+    border: none;
+    border-bottom: 3px solid wheat;
+    font-family: 'LT Saeada';
+}
+
+.inputSearch:focus{
+    border-bottom: 3px solid white;
+}
+
+.selectionSearch{
+    background-color: wheat;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    font-size: 1.5em;
+    color: black;
+    outline: none;
+    border: none;
+    margin-right: 1em;
+    text-align: left;
+    font-family: 'LT Saeada';
+    border-radius: 1em;
+}
+
+.selectionSearch:hover{
+    background-color: rgb(241, 199, 121);
+    cursor: pointer;
+}
+

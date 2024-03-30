@@ -41,3 +41,19 @@ exports.deleteLink = async (req, res) => {
         res.status(500).json({ message: err.message });
     });
 }
+
+exports.isFollowing = async (req, res) => {
+    const idOrga = req.body.idOrga;
+    const followedOrga = await FollowedOrgaModel.findOne({
+        where: {
+            idOrga: idOrga,
+            idUser: req.userId
+        }
+    });
+    console.log('Followed orga:', followedOrga);
+    if (followedOrga) {
+        res.json({ isFollowing: true });
+    } else {
+        res.json({ isFollowing:  false});
+    }
+}

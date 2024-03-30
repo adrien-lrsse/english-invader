@@ -11,5 +11,10 @@ router.get('/all', OrganizationController.getAllOrganizations);
 router.post('/follow', authJwt.verifyToken, OrganizationController.followOrganization);
 router.get('/followed', authJwt.verifyToken, FollowedOrgaController.getAllFollowedOrgas);
 router.post('/unfollow', authJwt.verifyToken, FollowedOrgaController.deleteLink);
+router.post('/search', OrganizationController.searchOrganizations);
+router.get('/organizationdetail/:idOrga', OrganizationController.getOrganizationDetails);
+router.get('/organizationById/:idOrga', OrganizationController.getOrganizationById);
+router.get('/followedOrganizations', authJwt.verifyToken, OrganizationController.getFollowedOrganizations);
+router.post('/isFollowing', authJwt.verifyToken, FollowedOrgaController.isFollowing);
 
 module.exports = router;

@@ -1,0 +1,90 @@
+@font-face {
+    font-family: Helsinki;
+    src: url(../../static/font/Helsinkifjes-Regular.otf);
+  }
+  
+  @font-face {
+    font-family: Kaio-Bold;
+    src: url(../../static/font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+  }
+  
+  @font-face {
+    font-family: LTSaeada;
+    src: url(../../static/font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+  }
+  
+  
+  .organizationList{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+  }
+  
+  .orga-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    border: 4px solid wheat;
+    cursor: pointer;
+    width: 80%;
+    background-color: rgb(31, 34, 49);
+  }
+  
+  .orga-preview:hover {
+      background-color: rgb(79, 94, 160);
+      box-shadow: 5px 5px 5px rgb(51, 56, 80);
+      border: 4px solid #007bff;
+    }
+  
+  .orga-preview h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+      color: wheat;
+      text-align: left;
+      width: 100%;
+      font-family: 'Kaio-Bold';
+  }
+  
+  .orga-preview:hover h2 {
+      color: wheat;
+  }
+  
+  .orga-preview:hover h3 {
+      color: black;
+  }
+  .orga-preview h3 {
+      color: white;
+      width: 100%;
+      font-family: 'LTSaeada';
+  }
+  
+  .button-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+  }
+  
+  .button-preview button {
+    margin-right: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: wheat;
+    cursor: pointer;
+    font-family: 'LTSaeada';
+    font-size: 1.25em;
+  
+  }
+  
+  .button-preview button:hover {
+    background-color:rgb(31, 34, 49) ;
+  }
+  
+  
+  

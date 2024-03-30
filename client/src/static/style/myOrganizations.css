@@ -210,3 +210,13 @@
 .own_organization button:hover{
     background-color:rgb(31, 34, 49) ;
 }
+
+.descriptionDiv{
+    width: 82%;
+    color: white;
+    border-top: 1px solid wheat;
+    border-bottom: 1px solid wheat;
+    font-family: 'LT Saeada';
+    font-size: large;
+    margin-bottom: 1em;
+}
