@@ -50,10 +50,10 @@ function MyTopics(){
         <div className="centering_horizontal centering_vertical vertical" style={{marginBottom : '5em'}}>
             <Navbar />
             <h1 className="title">my topics</h1>
-             <TopicList topics={topics} />
+             <TopicList topics={topics} display={1}/>
             <button className="add_word" onClick={() => window.location.href = "/topic"}>create a new topic</button>
             <h1 className="title">topics from my followed organizations</h1>
-            <FollowedTopicList topics={followedTopics} />
+            <FollowedTopicList topics={followedTopics}/>
         </div>
     )
 }

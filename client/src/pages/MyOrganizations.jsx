@@ -13,7 +13,6 @@ function MyOrganizations(){
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            // rediriger l'utilisateur vers la page d'accueil s'il n'y a pas de token
             window.location.href = '/';
             return;
         }
