@@ -17,4 +17,8 @@ router.delete('/topicdetail/:topicId', authJwt.verifyToken, TopicController.dele
 
 router.get('/followedTopics', authJwt.verifyToken, TopicController.getFollowedTopics);
 
+router.get('/allTopics', TopicController.getAllTopics);
+
+router.post('/search', TopicController.searchTopic);
+
 module.exports = router;

@@ -1,7 +1,6 @@
 // topic.controller.js
 const { TopicModel, WordModel, LinkTopicOrgaModel, FollowedOrgaModel } = require('../models');
-
-
+const { Op } = require('sequelize');
 
 exports.getAllTopics = async (req, res) => {
     try {
@@ -45,8 +44,6 @@ exports.getMyTopics = async (req, res) => {
 
 exports.getTopicDetails = async (req, res) => {
     const idTopic = req.params.topicId;
-    console.log('idTopic:+++', idTopic);
-
     TopicModel.findOne({
         where: {
             idTopic: idTopic
@@ -137,3 +134,28 @@ exports.getFollowedTopics = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+
+exports.searchTopic = async (req, res) => {
+    const search = req.body.search ;
+  
+    if (!search || typeof search !== 'string' || search.trim().length === 0) {
+      return res.status(400).json({ message: 'Invalid search query.' });
+    }
+  
+    try {
+      const topics = await TopicModel.findAll({
+        where: {
+          title: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        // Add any necessary filters or pagination here
+        limit: 10, // Limit the number of results
+      });  
+      res.json(topics);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server error.' });
+    }
+  };
