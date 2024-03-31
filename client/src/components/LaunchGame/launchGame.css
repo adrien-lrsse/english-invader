@@ -1,21 +1,60 @@
+@font-face {
+    font-family: Helsinki;
+    src: url(../../static/font/Helsinkifjes-Regular.otf);
+  }
+  
+  @font-face {
+    font-family: Kaio-Bold;
+    src: url(../../static/font/KaioTRIAL-Bold-BF65f24de19552f.otf);
+  }
+  
+  @font-face {
+    font-family: LTSaeada;
+    src: url(../../static/font/LTSaeada-Medium-BF65dfe3cb8157e.otf);
+  }
+  
+  
+
 .launchGame{
-    width: 30%;
+    width: 80%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     
 }
 
 .launchGame a{
-    width: 100%;
-    padding: 1.25em;
-    font-size: 1.5em;
-    background: black;
-    color: white;
-    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 20px;
+    background-color: black;
+    border: none;
+    border: 1px solid wheat;
+    color: wheat;
+    width: 50%;
+    height: 3.25em;
+    font-size: 2em;
     text-align: center;
-    border: 1px solid white;
+    font-family: 'LT Saeada';
+    text-decoration: none;
 }
 
+
 .launchGame a:hover{
-    background: #323232;
+    font-family: 'Kaiona-Regular';
+    background-color: wheat;
+    color: black;
+    cursor: pointer;
+}
+
+.launchGame p{
+    font-family: 'Courier New';
+    color: white;
+    font-size: 1.2em;
+    width: 50%;
+    text-align: justify;
 }
