@@ -16,12 +16,11 @@
   
 
 .launchGame{
-    width: 80%;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    
+    margin: auto 0;
 }
 
 .launchGame a{
@@ -35,7 +34,7 @@
     border: none;
     border: 1px solid wheat;
     color: wheat;
-    width: 50%;
+    width: 70%;
     height: 3.25em;
     font-size: 2em;
     text-align: center;
@@ -55,6 +54,6 @@
     font-family: 'Courier New';
     color: white;
     font-size: 1.2em;
-    width: 50%;
+    width: 70%;
     text-align: justify;
 }

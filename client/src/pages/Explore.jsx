@@ -13,18 +13,8 @@ function Explore(){
 
         const [resultView, setResultView] = useState([]);    
         useEffect(() => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-            // rediriger l'utilisateur vers la page d'accueil s'il n'y a pas de token
-            window.location.href = '/';
-            return;
-            }
         
-            const headers = {
-            authorization: token
-            };
-        
-            axios.get('/api/topics/allTopics', { headers })
+            axios.get('/api/topics/allTopics')
             .then(response => {
                 setResultView([<TopicList topics={response.data} />]);
             })
