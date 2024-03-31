@@ -5,6 +5,7 @@ const topicRouter = require('./routes/topics.router');
 const runningRouter = require('./routes/running.router');
 const wordRouter = require('./routes/word.router');
 const organizationRouter = require('./routes/organization.router');
+const streakRouter = require('./routes/streak.router');
 const db = require('./models');
 const authRouter = require('./routes/auth.router');
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/words', wordRouter);
 app.use('/api/running', runningRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/organizations', organizationRouter);
+app.use('/api/streak', streakRouter);
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
