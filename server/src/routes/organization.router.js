@@ -16,5 +16,7 @@ router.get('/organizationdetail/:idOrga', OrganizationController.getOrganization
 router.get('/organizationById/:idOrga', OrganizationController.getOrganizationById);
 router.get('/followedOrganizations', authJwt.verifyToken, OrganizationController.getFollowedOrganizations);
 router.post('/isFollowing', authJwt.verifyToken, FollowedOrgaController.isFollowing);
+router.post('/update', authJwt.verifyToken, OrganizationController.updateOrganization);
+
 
 module.exports = router;

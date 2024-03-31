@@ -144,3 +144,34 @@ exports.getOrganizationDetails = async (req, res) => {
       res.status(500).json({ message: err.message });
     });
   }
+
+  exports.updateOrganization = async (req, res) => {
+    console.log('Request body:', req.body);
+    const idOrga = req.body.idOrga;
+    console.log('ID:', idOrga);
+    OrganizationModel.update({
+      title: req.body.name,
+      description: req.body.description
+    }, {
+      where: {
+        idOrga: idOrga
+      }
+    }).then(() => {
+      res.status(200).json({ message: "Organization updated successfully!" });
+      LinkTopicOrgaModel.destroy({
+        where: {
+          idOrga: idOrga
+        }
+      }).then(() => {
+        req.body.topics.forEach(element => {
+          LinkTopicOrgaController.create(element, idOrga);
+        });
+      }
+      ).catch(err => {
+        res.status(500).json({ message: err.message });
+      });
+    }
+    ).catch(err => {
+      res.status(500).json({message: err.message});
+    });
+  }

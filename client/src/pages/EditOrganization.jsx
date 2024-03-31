@@ -13,27 +13,53 @@ function EditOrganization() {
    
     const [topics, setTopics] = useState([]);
 
+    const [organizationDetails, setOrganizationDetails] = useState({});
+
+    const [title, setTitle] = useState(''); 
+
+    const [description, setDescription] = useState('');
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            // rediriger l'utilisateur vers la page d'accueil s'il n'y a pas de token
-            window.location.href = '/';
-            return;
+          // rediriger l'utilisateur vers la page d'accueil s'il n'y a pas de token
+          window.location.href = '/';
+          return;
         }
-    
+      
         const headers = {
-            authorization: token
+          authorization: token
         };
-    
-        axios.get('/api/topics', { headers })
-            .then(response => {
-            console.log(response.data);
-            setTopics(response.data);
-            })
-            .catch(error => {
+      
+        const organizationPromise = axios.get(`/api/organizations/organizationById/${idOrga}`, { headers });
+        const topicsPromise = axios.get('/api/topics', { headers });
+        const organizationDetailsPromise = axios.get(`/api/organizations/organizationdetail/${idOrga}`, { headers });
+      
+        Promise.all([organizationPromise, topicsPromise, organizationDetailsPromise])
+          .then(([organizationResponse, topicsResponse, organizationDetailsResponse]) => {
+            setTitle(organizationResponse.data.title);
+            setDescription(organizationResponse.data.description);
+            setTopics(topicsResponse.data);
+            setOrganizationDetails(organizationDetailsResponse.data);
+          })
+          .catch(error => {
             console.error(error);
-            });
-        }, []);
+            window.location.href = '/explore';
+          });
+      }, []);
+      
+      useEffect(() => {
+        if (topics.length > 0 && organizationDetails) {
+          for (let i = 0; i < topics.length; i++) {
+            for (let j = 0; j < organizationDetails.length; j++) {
+              if (topics[i].idTopic === organizationDetails[j].idTopic) {
+                console.log(topics[i].idTopic);
+                document.querySelector(`input[value="${topics[i].idTopic}"]`).checked = true;
+              }
+            }
+          }
+        }
+      }, [topics, organizationDetails]);
 
 
     const handleCheck = (event) => {
@@ -53,7 +79,8 @@ function EditOrganization() {
         const data = {
             name: document.querySelector('input[name="name"]').value,
             description: document.querySelector('input[name="description"]').value,
-            topics: Array.from(document.querySelectorAll('input[name="topic"]:checked')).map(checkbox => checkbox.value)
+            topics: Array.from(document.querySelectorAll('input[name="topic"]:checked')).map(checkbox => checkbox.value),
+            idOrga: idOrga
         };
 
         if (!data.name || !data.description || data.topics.length === 0) {
@@ -67,7 +94,7 @@ function EditOrganization() {
             authorization: token
         };
     
-        axios.post('/api/organizations/new', data, { headers })
+        axios.post('/api/organizations/update', data, { headers })
             .then(response => {
             console.log(response.data);
             window.location.href = '/myorganizations';
@@ -84,16 +111,16 @@ function EditOrganization() {
             <div className="myOrganizations">
                 <h1 className="title">edit your organization</h1>
                 <div className="info_orga">
-                    <input type="text" name="name" id="name" placeholder="organization name" required/>
-                    <input type="text" name="description" id="description" placeholder="organization description" required/>
+                    <input type="text" name="name" id="name" onChange={(e) => {setTitle(e.target.value)}} placeholder="organization name" value={title} required/>
+                    <input type="text" name="description" id="description" onChange={(e) => {setDescription(e.target.value)}} placeholder="organization description" value={description} required/>
                 </div>
                 <div className="vertical">
 
                     <h2 className="subtitle">choose topics for your organisation</h2>
                     {topics.map(topic => (
-                        <div className="topicSelection" key={topic.idTopic} onClick={handleCheck}>
+                        <div className="topicSelection" key={topic.idTopic} onClick={handleCheck} >
                             <input type="checkbox" name="topic" id="topic" value={topic.idTopic}/>
-                            <label >{topic.title} :&nbsp;</label>
+                            <label  >{topic.title} :&nbsp;</label>
                             <p>{topic.description}</p>
                         </div>
                     ))}
