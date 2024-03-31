@@ -24,7 +24,7 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
   try {
     const idTopic = req.params.idTopic;
     const userId = req.userId;
-    const highScore = await GameModel.findOne({ idTopic: idTopic, idUser: userId }).sort({ score: -1 });
+    const highScore = await GameModel.findOne({ idTopic: idTopic, idUser: userId });
     res.status(200).json(highScore);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -36,10 +36,6 @@ exports.updateUserHighscore = async (req, res) => {
       const idTopic = req.params.idTopic;
       const userId = req.userId;
       const score = req.body.score;
-
-      console.log('idTopic', idTopic);
-      console.log('userId', userId);
-      console.log('score', score);
   
       const highScore = await GameModel.findOne({
         where: {
@@ -47,9 +43,6 @@ exports.updateUserHighscore = async (req, res) => {
           idUser: userId
         }
       });
-
-      console.log('ici')
-      console.log('highScore', highScore);
   
       if (!highScore) {
         // Créer un nouvel enregistrement si aucun enregistrement existant n'est trouvé
@@ -65,7 +58,7 @@ exports.updateUserHighscore = async (req, res) => {
           await highScore.update({
             score: score
           });
-          res.status(200).json({ message: "High score updated successfully!" });
+          res.status(200).json({ message: "High score updated successfully!", score: score});
         } else {
           res.status(200).json({ message: "High score not updated" });
         }

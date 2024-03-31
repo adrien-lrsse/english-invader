@@ -200,7 +200,7 @@ class GameCanvas extends React.Component {
         const timeDiff = Date.now() - word.timestamp;
 
         if (timeDiff > 0) {
-          const scoreIncrement = Math.round(100000 / timeDiff * this.state.validated.length / (this.state.failed.length + this.state.validated.length + this.state.inGame.length + this.state.dictionary.size)) * word.unknown.length;
+          const scoreIncrement = Math.round(100000 / timeDiff * (this.state.validated.length+1) / (this.state.failed.length + this.state.validated.length + this.state.inGame.length + this.state.dictionary.size)) * word.unknown.length;
 
           this.setState((prevState) => ({
             inGame: updatedInGame,
@@ -226,6 +226,8 @@ class GameCanvas extends React.Component {
       };
   
       const response = await axios.post('/api/games/updateUserHighscore/' + this.props.idTopic, {score: this.state.score }, { headers });
+
+      console.log(response.data);
   
       if (response.data) {
         this.setState({ highScore: response.data.score });
@@ -237,16 +239,16 @@ class GameCanvas extends React.Component {
   }
   
   
+  
 
   endGameExecution(ctx) {
     clearInterval(this.gameInterval);
     clearInterval(this.displayInterval);
   
-    // Vérifier si le score actuel est supérieur au high score de l'utilisateur
     if (this.state.score > this.state.highScore) {
       toast.success('New high score !');
       this.updateHighScore();
-    }
+    }  
   
     if (this.state.life > 0) {
       ctx.fillStyle = 'white';
