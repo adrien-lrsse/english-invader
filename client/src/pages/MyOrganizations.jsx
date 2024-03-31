@@ -52,7 +52,7 @@ function MyOrganizations(){
                 {myOrganizations}
             </div>
             <div className="horizontal horizontal_centering space_between">
-            <button className="buttonAction" onClick={() => window.location.href = "/neworganization"}>create a new organization</button>
+            <button className="buttonAction" onClick={() => window.location.href = "/organization/create"}>create a new organization</button>
 
             </div>
 

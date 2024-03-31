@@ -79,7 +79,7 @@ const OrganizationList = ({ organizations, display }) => {
           <h2>{organization.title}</h2>
           <h3>{organization.description}</h3>
           <div className='button-preview'>
-            <button onClick={() => window.location.href = ("vieworganization/" + organization.idOrga)} className="button">
+            <button onClick={() => window.location.href = ("/organization/view/" + organization.idOrga)} className="button">
               <span>View</span>
             </button>
             {display === 1 && (
@@ -102,7 +102,7 @@ const OrganizationList = ({ organizations, display }) => {
             )}
             {display === 2 && (
               <>
-                <button onClick={() => window.location.href = ("/vieworganization/" + organization.idOrga)} className="button">
+                <button onClick={() => window.location.href = ("/organization/edit/" + organization.idOrga)} className="button">
                   <span>Edit</span>
                 </button>
               </>

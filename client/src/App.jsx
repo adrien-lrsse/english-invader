@@ -14,6 +14,7 @@ import NewOrganization from './pages/newOrganization';
 import EditTopic from './pages/EditTopic';
 import Explore from './pages/Explore';
 import ViewOrganization from './pages/ViewOrganization';
+import EditOrganization from './pages/EditOrganization';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,9 +29,10 @@ ReactDOM.render(
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/myorganizations' element={<MyOrganizations />} />
-        <Route path='/neworganization' element={<NewOrganization />} />
+        <Route path='/organization/create' element={<NewOrganization />} />
         <Route path='/explore' element={<Explore />} />
-        <Route path='/vieworganization/:idOrga' element={<ViewOrganization />} />
+        <Route path='/organization/view/:idOrga' element={<ViewOrganization />} />
+        <Route path='/organization/edit/:idOrga' element={<EditOrganization />} />
       </Routes>
     </Router>
   </React.StrictMode>,
