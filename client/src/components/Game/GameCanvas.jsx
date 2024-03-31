@@ -94,7 +94,7 @@ class GameCanvas extends React.Component {
   componentDidMount() {
     const ctx = this.gameCanvas.current.getContext("2d");
 
-    this.setState({ x: this.gameCanvas.current.width / 2 }); // mettre à jour this.state.x
+    this.setState({ x: this.gameCanvas.current.width / 2 });
 
     ctx.fillStyle = "white";
     ctx.fillText("test", 150,150);
@@ -176,7 +176,7 @@ class GameCanvas extends React.Component {
         const word = this.state.inGame.find((word) => word.guess === proposalValue);
         const timeDiff = Date.now() - word.timestamp;
         if (timeDiff > 0) {
-          const scoreIncrement = Math.round(10000 / timeDiff * this.state.validated.length);
+          const scoreIncrement = Math.round(100000 / timeDiff * this.state.validated.length / (this.state.failed.length + this.state.validated.length + this.state.inGame.length + this.state.dictionary.size)) * word.unknown.length;
           this.setState((prevState) => ({
             inGame: updatedInGame,
             validated: [...prevState.validated, proposalValue],
@@ -191,6 +191,7 @@ class GameCanvas extends React.Component {
       event.target.value = "";
     }
   };
+  
   
   
 
