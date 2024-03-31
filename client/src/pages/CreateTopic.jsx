@@ -108,9 +108,6 @@ function CreateTopic(){
                 <div id="definition_section">
                     
                         <h2>write your topic words</h2>
-                        
-                   
-                    
                     {definitions.map((definition) => {
                         return definition;
                     })}
