@@ -40,7 +40,29 @@ function MyOrganizations(){
                 console.error(error);
             });
 
-    }, [followedOrganizations]);
+    }, []);
+
+    const reload = () => {
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/';
+            return;
+        }
+
+        const headers = {
+            authorization: token
+        };
+
+        axios.get('/api/organizations/followedOrganizations', { headers})
+            .then(response => {
+                setFollowedOrganizations(<OrganizationList organizations={response.data} display={1} />);
+                
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
 
     return (
         <div>
@@ -56,7 +78,7 @@ function MyOrganizations(){
 
             </div>
 
-            <div className="myOrganizations">
+            <div className="myOrganizations"  onClick={reload}>
                 <h1 className="title">my followed organizations</h1>
                 {followedOrganizations}
             </div>
