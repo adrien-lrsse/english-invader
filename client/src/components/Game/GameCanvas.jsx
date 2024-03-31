@@ -8,6 +8,7 @@ class CanvasWord {
     this.guess = guess;
     this.posX = posX;
     this.posY = posY;
+    this.timestamp = Date.now(); // Ajoutez cette ligne
   }
 
   updatePos() {
@@ -132,13 +133,16 @@ class GameCanvas extends React.Component {
         inGameTemp.push(this.state.inGame[i]);
       }
     }
-
+  
     this.setState({ inGame: inGameTemp });
     console.log(this.state.failed);
     if ((this.state.inGame.length === 0 && this.state.dictionary.size === 0) || this.state.life === 0) {
+      clearInterval(this.gameInterval);
+      clearInterval(this.displayInterval);
       this.endGameExecution(ctx);
     }
   }
+  
 
   randomSelection(dictionary) {
     const keys = Array.from(dictionary.keys());
@@ -167,23 +171,28 @@ class GameCanvas extends React.Component {
     if (event.key === "Enter") {
       const proposalValue = event.target.value;
       const updatedInGame = this.state.inGame.filter((word) => word.guess !== proposalValue);
-
+  
       if (updatedInGame.length < this.state.inGame.length) {
-        this.setState((prevState) => ({
-          inGame: updatedInGame,
-          validated: [...prevState.validated, proposalValue],
-          score : prevState.score + 1
-        }),
-        () => {
-          this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
-        });
-           
-        
+        const word = this.state.inGame.find((word) => word.guess === proposalValue);
+        const timeDiff = Date.now() - word.timestamp;
+        if (timeDiff > 0) {
+          const scoreIncrement = Math.round(10000 / timeDiff * this.state.validated.length);
+          this.setState((prevState) => ({
+            inGame: updatedInGame,
+            validated: [...prevState.validated, proposalValue],
+            score: prevState.score + scoreIncrement,
+          }),
+          () => {
+            this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
+          });
+        }
       }
-
+  
       event.target.value = "";
     }
   };
+  
+  
 
   endGameExecution(ctx) {
     clearInterval(this.gameInterval);
