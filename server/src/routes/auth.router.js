@@ -3,6 +3,7 @@ const router = express.Router();
 const AuthController = require('../controllers/auth.controller');
 const { checkDuplicateMail } = require('../middleware/verifySignUp');
 const authJwt = require('../middleware/authJwt');
+const StreakController = require('../controllers/streak.controller');
 
 
 router.post('/signup', checkDuplicateMail, AuthController.signup);

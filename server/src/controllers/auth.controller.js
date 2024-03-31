@@ -1,20 +1,22 @@
 const { UserModel } = require('../models');
 const config = require('../config/auth.config');
+const StreakController = require('./streak.controller');
 
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
 exports.signup = async (req, res) => {
-    UserModel.create({
-        mail: req.body.email,
-        pseudo: req.body.pseudo,
-        password: bcrypt.hashSync(req.body.password, 8)
-    }). then(user => {
-        res.status(200).json({ message: "User registered successfully!" });
-    }).catch(err => {
-        res.status(500).json({ message: err.message });
-    });
+  UserModel.create({
+    mail: req.body.email,
+    pseudo: req.body.pseudo,
+    password: bcrypt.hashSync(req.body.password, 8)
+  }).then(async (user) => {
+    await StreakController.createStreak(user.idUser);
+    res.status(200).json({ message: "User registered successfully!" });
+  }).catch(err => {
+    res.status(500).json({ message: err.message });
+  });
 }
 
 exports.signin = async (req, res) => {

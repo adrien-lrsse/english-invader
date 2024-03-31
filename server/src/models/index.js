@@ -6,8 +6,7 @@ const Word = require('./word.model.js');
 const Organization = require('./organizations.model.js');
 const LinkTopicOrga = require('./link_topic_orga.model.js');
 const FollowedOrga = require('./followed_orga.model.js');
-const e = require("express");
-
+const Streak = require('./streak.model.js');
 
 const sequelize = new Sequelize(
   config.DB,
@@ -31,6 +30,7 @@ const WordModel = Word(sequelize);
 const OrganizationModel = Organization(sequelize);
 const LinkTopicOrgaModel = LinkTopicOrga(sequelize);
 const FollowedOrgaModel = FollowedOrga(sequelize);
+const StreakModel = Streak(sequelize);
 
 sequelize.sync()
   .then(() => {
@@ -47,5 +47,6 @@ module.exports = {
   OrganizationModel,
   LinkTopicOrgaModel,
   FollowedOrgaModel,
+  StreakModel,
   sequelize
 };
