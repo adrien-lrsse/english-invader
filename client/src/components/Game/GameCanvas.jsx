@@ -276,8 +276,6 @@ class GameCanvas extends React.Component {
       toast.success('New high score !');
       this.updateHighScore();
     }
-
-    this.fetchLeaderboard();
   
     if (this.state.life > 0) {
       ctx.fillStyle = 'white';
@@ -290,6 +288,8 @@ class GameCanvas extends React.Component {
       ctx.font = '30px Arial';
       ctx.fillText('You lost !', (this.gameCanvas.current.width - ctx.measureText('You lost !').width) / 2, this.gameCanvas.current.height / 2);
     }
+
+    this.fetchLeaderboard();
   }
   
 
