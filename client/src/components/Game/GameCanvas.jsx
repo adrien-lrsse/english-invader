@@ -275,7 +275,9 @@ class GameCanvas extends React.Component {
     if (this.state.score > this.state.highScore) {
       toast.success('New high score !');
       this.updateHighScore();
-    }  
+    }
+
+    this.fetchLeaderboard();
   
     if (this.state.life > 0) {
       ctx.fillStyle = 'white';
