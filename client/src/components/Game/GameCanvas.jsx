@@ -64,7 +64,9 @@ class GameCanvas extends React.Component {
     if (this.props.idTopic){
       console.log("hello");
       console.log(this.props.idTopic);
-      this.fetchWords();
+      if (this.props.idTopic !== 0){
+        this.fetchWords();
+      }
     }
   }
 
@@ -121,10 +123,12 @@ class GameCanvas extends React.Component {
     ctx.fillStyle = "white";
     ctx.fillText("test", 150,150);
 
-    if (this.props.idTopic){
+    if (this.props.idTopic !== 0){
+    
       await this.fetchWords();
-      await this.fetchHighScore();
     }
+      await this.fetchHighScore();
+    
     
 
     this.gameInterval = setInterval(() => this.game(ctx), 20);
@@ -236,9 +240,11 @@ class GameCanvas extends React.Component {
   
       if (response.data) {
         this.setState({ highScore: response.data.score });
+        toast.success('High score updated');
       }
   
     } catch (error) {
+      toast.error('Error while updating high score');
       console.error(error);
     }
   }
@@ -251,7 +257,6 @@ class GameCanvas extends React.Component {
     clearInterval(this.displayInterval);
   
     if (this.state.score > this.state.highScore) {
-      toast.success('New high score !');
       this.updateHighScore();
     }  
   
