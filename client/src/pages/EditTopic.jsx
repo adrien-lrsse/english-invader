@@ -32,10 +32,8 @@ function EditTopic() {
                 }
         
                 const topicResponse = await axios.get(`/api/topics/topicdetail/${topicId}`, { headers });
-                console.log(topicResponse.data);
         
                 const wordsResponse = await axios.get(`/api/words/${topicId}`, { headers });
-                console.log(wordsResponse.data);
         
                 setTopicDetails({
                     title: topicResponse.data.title,
@@ -98,7 +96,6 @@ function EditTopic() {
         
             axios.post('/api/words', wordsWithTopicId, { headers })
             .then(response => {
-                console.log(response.data);
                 toast.success('Topic and words saved successfully');
             })
             .catch(error => {
@@ -150,7 +147,6 @@ function EditTopic() {
                 <div id="definition_section">
                 <h2>write your topic words</h2>
                     {topicDetails.words.map((word, index) => (
-                        console.log('Word:', word),
                         <div key={index} className="sectionDef">
                             <input
                                 className="inputAnswer"

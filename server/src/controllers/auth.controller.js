@@ -20,7 +20,6 @@ exports.signup = async (req, res) => {
 }
 
 exports.signin = async (req, res) => {
-    console.log("Email reçu dans la requête :", req.body.mail);
     UserModel.findOne({
       where: {
         mail: req.body.mail
@@ -64,7 +63,6 @@ exports.signin = async (req, res) => {
 
 
   exports.getUser = async (req, res) => {
-    console.log("req.userId", req.userId);
 
     UserModel.findOne({
       where: {

@@ -28,7 +28,6 @@ exports.getStreak = async (req, res) => {
 }
 
 exports.updateStreak = async (req, res) => {
-  console.log(req.userId);
   try {
     const streak = await StreakModel.findOne({
       where: {
@@ -40,8 +39,6 @@ exports.updateStreak = async (req, res) => {
     }
     const today = new Date();
     const julian = julianDate(today);
-    console.log(julian);
-    console.log(julian - streak.date);
     if ((julian - streak.date) >= 1 && (julian - streak.date) < 2) {
       await streak.update({
         date: julian,

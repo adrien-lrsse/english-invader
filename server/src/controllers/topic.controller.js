@@ -62,7 +62,6 @@ exports.getTopicDetails = async (req, res) => {
         res.status(200).json(topic);
     })
     .catch(err => {
-        console.error('Error getting topic:', err);
         res.status(500).json({ message: err.message });
     });
 };
@@ -97,7 +96,6 @@ exports.deleteTopic = async (req, res) => {
         await topic.destroy();
         res.status(204).send();
     } catch (error) {
-        console.error('Error deleting topic:', error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -127,7 +125,6 @@ exports.getFollowedTopics = async (req, res) => {
             }
         });
 
-        console.log('Topics:', topics);
 
         res.json(topics);
     } catch (error) {
@@ -155,7 +152,6 @@ exports.searchTopic = async (req, res) => {
       });  
       res.json(topics);
     } catch (err) {
-      console.error(err);
       res.status(500).json({ message: 'Server error.' });
     }
   };

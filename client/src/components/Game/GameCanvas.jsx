@@ -63,8 +63,6 @@ class GameCanvas extends React.Component {
     };
 
     if (this.props.idTopic){
-      console.log("hello");
-      console.log(this.props.idTopic);
       if (this.props.idTopic !== 0){
         this.fetchWords();
       }
@@ -80,7 +78,6 @@ class GameCanvas extends React.Component {
       };
 
       const response = await axios.get(`/api/words/${this.props.idTopic}`, { headers });
-      console.log(response.data);
       const newDictionary = new Map();
       if (response.data.length === 0) {
         window.location.href = '/game';
@@ -106,7 +103,6 @@ class GameCanvas extends React.Component {
 
       const response = await axios.get(`/api/games/getHighscoreByUserAndTopic/${this.props.idTopic}`, { headers });
 
-      console.log(response.data);
 
       if (response.data) {
         this.setState({ highScore: response.data.score });
@@ -185,14 +181,12 @@ class GameCanvas extends React.Component {
         this.setState((prevState) => ({ life: prevState.life - 1,
           failed: [...prevState.failed, prevState.inGame[i]]}));
         this.lifeElement.current.innerHTML = `❤️ Life : ${this.state.life}`;
-        console.log(this.state.inGame[i])
       } else {
         inGameTemp.push(this.state.inGame[i]);
       }
     }
   
     this.setState({ inGame: inGameTemp });
-    console.log(this.state.failed);
     if ((this.state.inGame.length === 0 && this.state.dictionary.size === 0) || this.state.life === 0) {
       clearInterval(this.gameInterval);
       clearInterval(this.displayInterval);
@@ -261,7 +255,6 @@ class GameCanvas extends React.Component {
   
       const response = await axios.post('/api/games/updateUserHighscore/' + this.props.idTopic, {score: this.state.score }, { headers });
 
-      console.log(response.data);
   
       if (response.data) {
         this.setState({ highScore: response.data.score });
@@ -282,11 +275,9 @@ class GameCanvas extends React.Component {
         authorization: token,
       };
 
-      console.log(headers)
 
       const response = await axios.post('/api/streak/update',  {}, {headers });
 
-      console.log(response.data);
 
     }
     catch (error) {

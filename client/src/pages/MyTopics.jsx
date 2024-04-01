@@ -29,7 +29,6 @@ function MyTopics(){
         
             axios.get('/api/topics', { headers })
               .then(response => {
-                console.log(response.data);
                 setTopics(response.data);
               })
               .catch(error => {
@@ -38,7 +37,6 @@ function MyTopics(){
 
               axios.get('/api/topics/followedTopics', { headers })
               .then(response => {
-                console.log(response.data);
                 setFollowedTopics(response.data);
               }).catch(error => {
                 console.error(error);

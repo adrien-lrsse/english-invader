@@ -18,7 +18,6 @@ function Signup() {
                 pseudo: pseudo,
                 password: password
             });
-            console.log(response.data);
             toast.success(response.data.message);
         } catch (error) {
             console.error(error);

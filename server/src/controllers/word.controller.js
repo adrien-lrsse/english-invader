@@ -4,7 +4,6 @@ const { WordModel, TopicModel, FollowedOrgaModel } = require('../models');
 
 
 exports.createWord = (req, res) => {
-    console.log('Request body:', req.body);
     const wordsData = req.body;
 
     if (!Array.isArray(wordsData)) {
@@ -12,7 +11,6 @@ exports.createWord = (req, res) => {
     }
 
     for (let word of wordsData) {
-        console.log('Word:', word);
         if (!word.word_en || !word.word_fr || !word.idTopic) {
             return res.status(400).json({ message: 'word_en, word_fr, and idTopic are required for each word' });
         }
@@ -25,10 +23,8 @@ exports.createWord = (req, res) => {
             word_fr : word.word_fr,
             idTopic : word.idTopic
         }).then(word => {
-            console.log('Word created:', word);
             res.status(201).json(word);
         }).catch(err => {
-            console.error('Error creating word:', err);
             res.status(500).json({ message: err.message });
         });
         
@@ -42,7 +38,6 @@ exports.getWordsByTopic = (req, res) => {
             idTopic: idTopic
         }
     }).then(topic => {
-        console.log('Topic:', topic);
         if (!topic) {
             return res.status(404).json({ message: 'Topic not found' });
         }
@@ -54,11 +49,9 @@ exports.getWordsByTopic = (req, res) => {
         ).then(words => {
             res.status(200).json(words);
         }).catch(err => {
-            console.error('Error getting words:', err);
             res.status(500).json({ message: err.message });
         });
     }).catch(err => {
-        console.error('Error getting topic:', err);
         res.status(500).json({ message: err.message });
     });
 

@@ -41,7 +41,6 @@ exports.getAllOrganizations = async (req, res) => {
 }
 
 exports.followOrganization = async (req, res) => {
-    console.log('Request body:', req.body);
     const idOrga = req.body.idOrga;
     OrganizationModel.findOne({
         where: {
@@ -89,7 +88,6 @@ exports.getFollowedOrganizations = async (req, res) => {
 
 
 exports.searchOrganizations = async (req, res) => {
-    console.log('Request body:', req.body);
     const search = req.body.search;
     OrganizationModel.findAll({
         where: {
@@ -150,9 +148,7 @@ exports.getOrganizationDetails = async (req, res) => {
   }
 
   exports.updateOrganization = async (req, res) => {
-    console.log('Request body:', req.body);
     const idOrga = req.body.idOrga;
-    console.log('ID:', idOrga);
     OrganizationModel.update({
       title: req.body.name,
       description: req.body.description

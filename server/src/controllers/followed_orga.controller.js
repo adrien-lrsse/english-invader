@@ -1,7 +1,6 @@
 const { FollowedOrgaModel } = require('../models');
 
 exports.createLink = async (req, res) => {
-    console.log('Request body:', req.body);
     FollowedOrgaModel.create({
         idOrga: req.body.idOrga,
         idUser: req.userId

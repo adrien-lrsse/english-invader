@@ -23,7 +23,6 @@ function NewOrganization() {
     
         axios.get('/api/topics', { headers })
             .then(response => {
-            console.log(response.data);
             setTopics(response.data);
             })
             .catch(error => {
@@ -57,7 +56,6 @@ function NewOrganization() {
             return;
         }
 
-        console.log(data);
     
         const headers = {
             authorization: token
@@ -65,7 +63,6 @@ function NewOrganization() {
     
         axios.post('/api/organizations/new', data, { headers })
             .then(response => {
-            console.log(response.data);
             window.location.href = '/myorganizations';
             })
             .catch(error => {

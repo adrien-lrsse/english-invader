@@ -23,7 +23,6 @@ function Home(){
         };
         axios.get('/api/auth/getUser', { headers })
         .then(response => {
-            console.log(response.data.pseudo);
             setUser({pseudo: response.data.pseudo});
             toast.success("You are logged as " + response.data.pseudo);
         })

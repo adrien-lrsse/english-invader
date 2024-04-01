@@ -30,7 +30,6 @@ function CreateTopic(){
     const addDefinition = () => {
         setDefinitions([...definitions, definition_section({ key: index, onDelete: deleteDefinition })]);
         setIndex(index + 1);
-        console.log(index);
     }
 
     const saveTopic = () => {
@@ -57,7 +56,6 @@ function CreateTopic(){
 
         axios.post('/api/topics', topicData, { headers })
         .then(response => {
-            console.log(response);
             const topicId = response.data.idTopic;
             const words = [];
             for (let def of definitions) {
@@ -71,10 +69,8 @@ function CreateTopic(){
                     words.push({ word_en: word, word_fr: definition, idTopic: topicId });
                 }
             }
-            console.log(words);
             axios.post('/api/words', words, { headers })
             .then(response => {
-                console.log(response.data);
                 toast.success('Topic and words saved successfully');
             }
             )

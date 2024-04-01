@@ -16,7 +16,6 @@ function Game(){
     
     useEffect(() => {
         if (!idTopic) {
-            console.log('No topic id');
             toast('Default topic selected', {
                 icon: '🍎'
             });

@@ -25,7 +25,6 @@ function Explore(){
 
         const search = (event) => {
             if (event.keyCode === 13) {
-                console.log(event.target.value);
                 const type = document.getElementById('category').value;
                 if (type === 'topics') {    
                     axios.post('/api/topics/search', { search: event.target.value })

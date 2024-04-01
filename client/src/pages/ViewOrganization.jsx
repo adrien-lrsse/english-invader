@@ -18,7 +18,6 @@ function ViewOrganization() {
     
         axios.get('/api/organizations/organizationdetail/' + idOrga)
             .then(response => {
-            console.log(response.data);
             setTopics(response.data);
             })
             .catch(error => {
@@ -27,7 +26,6 @@ function ViewOrganization() {
 
         axios.get('/api/organizations/organizationById/' + idOrga)
             .then(response => {
-            console.log(response.data);
             setTitle(response.data.title);
             setDescription(response.data.description);
             })

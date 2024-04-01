@@ -53,7 +53,6 @@ function EditOrganization() {
           for (let i = 0; i < topics.length; i++) {
             for (let j = 0; j < organizationDetails.length; j++) {
               if (topics[i].idTopic === organizationDetails[j].idTopic) {
-                console.log(topics[i].idTopic);
                 document.querySelector(`input[value="${topics[i].idTopic}"]`).checked = true;
               }
             }
@@ -88,7 +87,6 @@ function EditOrganization() {
             return;
         }
 
-        console.log(data);
     
         const headers = {
             authorization: token
@@ -96,7 +94,6 @@ function EditOrganization() {
     
         axios.post('/api/organizations/update', data, { headers })
             .then(response => {
-            console.log(response.data);
             window.location.href = '/myorganizations';
             })
             .catch(error => {

@@ -21,7 +21,6 @@ const PersonnalView = ({pseudo}) => {
 
         axios.get('/api/streak/me', {headers})
             .then(response => {
-                console.log(response.data);
                 setStreak(response.data.streak);
             })
             .catch(error => {
