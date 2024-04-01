@@ -34,6 +34,8 @@ const LinkTopicOrgaModel = LinkTopicOrga(sequelize);
 const FollowedOrgaModel = FollowedOrga(sequelize);
 const StreakModel = Streak(sequelize);
 
+GameModel.belongsTo(UserModel, { foreignKey: 'idUser', targetKey: 'idUser' });
+
 sequelize.sync()
   .then(() => {
     console.log('Tables synchronisées avec succès');

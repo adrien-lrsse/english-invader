@@ -34,6 +34,7 @@ class GameCanvas extends React.Component {
       life: 3,
       score: 0,
       highScore: 0,
+      leaderboard: [],
       dictionary: new Map([
         ["dog", "chien"],
         ["cat", "chat"],
@@ -103,6 +104,8 @@ class GameCanvas extends React.Component {
 
       const response = await axios.get(`/api/games/getHighscoreByUserAndTopic/${this.props.idTopic}`, { headers });
 
+      console.log(response.data);
+
       if (response.data) {
         this.setState({ highScore: response.data.score });
       }
@@ -110,6 +113,29 @@ class GameCanvas extends React.Component {
       console.error(error);
     }
   }
+
+  fetchLeaderboard = async () => {
+    try {
+      const token = localStorage.getItem('token');
+  
+      const headers = {
+        authorization: token,
+      };
+  
+      const response = await axios.get(`/api/games/getHighscores/${this.props.idTopic}`, { headers });
+  
+      if (response.data) {
+        const leaderboard = response.data.map(game => ({
+          pseudo: game.pseudo,
+          score: game.score
+        }));
+        this.setState({ leaderboard });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }  
+  
 
   async componentDidMount() {
     const ctx = this.gameCanvas.current.getContext("2d");
@@ -121,6 +147,7 @@ class GameCanvas extends React.Component {
 
     await this.fetchWords();
     await this.fetchHighScore();
+    await this.fetchLeaderboard();
 
     this.gameInterval = setInterval(() => this.game(ctx), 20);
     this.displayInterval = setInterval(() => this.display(ctx), 0.1);
@@ -279,9 +306,19 @@ class GameCanvas extends React.Component {
           
           </div>
           <div className="vertical" style={{marginLeft : '1em'}}>
+            <div className="item_game">
+              <h2>Leaderboard : </h2>
+              <ol>
+                {this.state.leaderboard.map((entry, index) => (
+                  <li key={index}>
+                    {entry.pseudo} : {entry.score}
+                  </li>
+                ))}
+              </ol>
+            </div>
             {this.state.failed.map((item, i) => (
               <div className="horizontal failed_guess" key={i} style={{marginLeft : '1em'}}>
-                <p>(🇬🇧) <b>{item.unknown}</b> has for definition &nbsp;</p>
+                <p>(🇬🇧) <b>{item.unknown}</b> means&nbsp;</p>
                 <p><b>{item.guess}</b> (🇫🇷)</p>
               </div>
             ))}
