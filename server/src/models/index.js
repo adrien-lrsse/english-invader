@@ -2,6 +2,7 @@ const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const User = require('./user.model.js');
 const Topic = require('./topic.model.js');
+const Game = require('./game.model.js');
 const Word = require('./word.model.js');
 const Organization = require('./organizations.model.js');
 const LinkTopicOrga = require('./link_topic_orga.model.js');
@@ -26,6 +27,7 @@ const sequelize = new Sequelize(
 
 const UserModel = User(sequelize);
 const TopicModel = Topic(sequelize);
+const GameModel = Game(sequelize);
 const WordModel = Word(sequelize);
 const OrganizationModel = Organization(sequelize);
 const LinkTopicOrgaModel = LinkTopicOrga(sequelize);
@@ -43,6 +45,7 @@ sequelize.sync()
 module.exports = {
   UserModel,
   TopicModel,
+  GameModel,
   WordModel,
   OrganizationModel,
   LinkTopicOrgaModel,

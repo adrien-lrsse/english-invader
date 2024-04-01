@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import './gameCanvas.css';
 
@@ -8,6 +9,7 @@ class CanvasWord {
     this.guess = guess;
     this.posX = posX;
     this.posY = posY;
+    this.timestamp = Date.now(); // Ajoutez cette ligne
   }
 
   updatePos() {
@@ -31,6 +33,7 @@ class GameCanvas extends React.Component {
       y: 0,
       life: 3,
       score: 0,
+      highScore: 0,
       dictionary: new Map([
         ["dog", "chien"],
         ["cat", "chat"],
@@ -90,14 +93,35 @@ class GameCanvas extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async fetchHighScore() {
+    try {
+      const token = localStorage.getItem('token');
+
+      const headers = {
+        authorization: token,
+      };
+
+      const response = await axios.get(`/api/games/getHighscoreByUserAndTopic/${this.props.idTopic}`, { headers });
+
+      if (response.data) {
+        this.setState({ highScore: response.data.score });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async componentDidMount() {
     const ctx = this.gameCanvas.current.getContext("2d");
 
-    this.setState({ x: this.gameCanvas.current.width / 2 }); // mettre à jour this.state.x
+    this.setState({ x: this.gameCanvas.current.width / 2 });
 
     ctx.fillStyle = "white";
     ctx.fillText("test", 150,150);
-    
+
+    await this.fetchWords();
+    await this.fetchHighScore();
+
     this.gameInterval = setInterval(() => this.game(ctx), 20);
     this.displayInterval = setInterval(() => this.display(ctx), 0.1);
   }
@@ -132,13 +156,16 @@ class GameCanvas extends React.Component {
         inGameTemp.push(this.state.inGame[i]);
       }
     }
-
+  
     this.setState({ inGame: inGameTemp });
     console.log(this.state.failed);
     if ((this.state.inGame.length === 0 && this.state.dictionary.size === 0) || this.state.life === 0) {
+      clearInterval(this.gameInterval);
+      clearInterval(this.displayInterval);
       this.endGameExecution(ctx);
     }
   }
+  
 
   randomSelection(dictionary) {
     const keys = Array.from(dictionary.keys());
@@ -169,27 +196,61 @@ class GameCanvas extends React.Component {
       const updatedInGame = this.state.inGame.filter((word) => word.guess !== proposalValue);
 
       if (updatedInGame.length < this.state.inGame.length) {
-        this.setState((prevState) => ({
-          inGame: updatedInGame,
-          validated: [...prevState.validated, proposalValue],
-          score : prevState.score + 1
-        }),
-        () => {
-          this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
-        });
-           
-        
+        const word = this.state.inGame.find((word) => word.guess === proposalValue);
+        const timeDiff = Date.now() - word.timestamp;
+
+        if (timeDiff > 0) {
+          const scoreIncrement = Math.round(100000 / timeDiff * (this.state.validated.length+1) / (this.state.failed.length + this.state.validated.length + this.state.inGame.length + this.state.dictionary.size)) * word.unknown.length;
+
+          this.setState((prevState) => ({
+            inGame: updatedInGame,
+            validated: [...prevState.validated, proposalValue],
+            score: prevState.score + scoreIncrement,
+          }),
+          () => {
+            this.scoreElement.current.innerHTML = `🎯 Score : ${this.state.score}`;
+          });
+        }
       }
 
       event.target.value = "";
     }
   };
+  
+  updateHighScore = async () => {
+    try {
+      const token = localStorage.getItem('token');
+  
+      const headers = {
+        authorization: token,
+      };
+  
+      const response = await axios.post('/api/games/updateUserHighscore/' + this.props.idTopic, {score: this.state.score }, { headers });
+
+      console.log(response.data);
+  
+      if (response.data) {
+        this.setState({ highScore: response.data.score });
+      }
+  
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  
+  
 
   endGameExecution(ctx) {
     clearInterval(this.gameInterval);
     clearInterval(this.displayInterval);
-
-    if (this.state.validated.length === 20 || this.state.life > 0) {
+  
+    if (this.state.score > this.state.highScore) {
+      toast.success('New high score !');
+      this.updateHighScore();
+    }  
+  
+    if (this.state.life > 0) {
       ctx.fillStyle = 'white';
       ctx.clearRect(0, 0, this.gameCanvas.current.width, this.gameCanvas.current.height);
       ctx.font = '30px Arial';
@@ -201,19 +262,21 @@ class GameCanvas extends React.Component {
       ctx.fillText('You lost !', (this.gameCanvas.current.width - ctx.measureText('You lost !').width) / 2, this.gameCanvas.current.height / 2);
     }
   }
+  
 
-    render() {
-      return (
-        <div className="horizontal " style={{width: "100%"}} >
-          <div className="vertical game_canvas" style={{width: "55%"}}>
-          <canvas ref={this.gameCanvas}  id="gameCanvas" width={560} height={700} />
-          <input ref={this.proposal} type="text"  className='input_answer' onKeyDown={this.handleProposalKeyDown} placeholder="guess a word" />
-          </div>
-          <div className="vertical vertical_item_game" style={{width: "45%"}}>
+  render() {
+    return (
+      <div className="horizontal " style={{width: "100%"}} >
+        <div className="vertical game_canvas" style={{width: "55%"}}>
+          <canvas ref={this.gameCanvas} id="gameCanvas" width={560} height={700} />
+          <input ref={this.proposal} type="text" className='input_answer' onKeyDown={this.handleProposalKeyDown} placeholder="guess a word" />
+        </div>
+        <div className="vertical vertical_item_game" style={{width: "45%"}}>
           <div className="horizontal item_game" >
               <h2 ref={this.lifeElement}>❤️ Life : {this.state.life}</h2>
               <h2 ref={this.scoreElement}>🎯 Score : {this.state.score}</h2>
-              
+              <h2>🏆 My High Score : {this.state.highScore}</h2> 
+          
           </div>
           <div className="vertical" style={{marginLeft : '1em'}}>
             {this.state.failed.map((item, i) => (
@@ -225,10 +288,10 @@ class GameCanvas extends React.Component {
           </div>
           
         </div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 
 
 export default GameCanvas;

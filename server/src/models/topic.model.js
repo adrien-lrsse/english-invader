@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const Word = require('../models/word.model')(sequelize); // Importez Word après avoir défini sequelize
+    const Word = require('../models/word.model')(sequelize);
 
     const Topic = sequelize.define('topic', {
         idTopic: {
@@ -24,7 +24,6 @@ module.exports = (sequelize) => {
         timestamps: false
     });
 
-    // Assurez-vous que WordModel est correctement importé pour éviter l'erreur
     Topic.hasMany(Word, {
         foreignKey: 'idTopic',
         onDelete: 'CASCADE'
