@@ -22,9 +22,16 @@ exports.addHighScore = async (req, res) => {
 
 exports.getHighScoreByUserAndTopic = async (req, res) => {
   try {
+    console.log(req.params.idTopic, req.userId)
     const idTopic = req.params.idTopic;
     const userId = req.userId;
-    const highScore = await GameModel.findOne({ idTopic: idTopic, idUser: userId });
+    const highScore = await GameModel.findOne({ 
+      where : { 
+        idTopic: idTopic, 
+        idUser: userId 
+      }
+
+    });
     res.status(200).json(highScore);
   } catch (error) {
     res.status(500).json({ message: error.message });

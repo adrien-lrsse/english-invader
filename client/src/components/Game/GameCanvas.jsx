@@ -103,6 +103,8 @@ class GameCanvas extends React.Component {
 
       const response = await axios.get(`/api/games/getHighscoreByUserAndTopic/${this.props.idTopic}`, { headers });
 
+      console.log(response.data); 
+
       if (response.data) {
         this.setState({ highScore: response.data.score });
       }
@@ -119,8 +121,11 @@ class GameCanvas extends React.Component {
     ctx.fillStyle = "white";
     ctx.fillText("test", 150,150);
 
-    await this.fetchWords();
-    await this.fetchHighScore();
+    if (this.props.idTopic){
+      await this.fetchWords();
+      await this.fetchHighScore();
+    }
+    
 
     this.gameInterval = setInterval(() => this.game(ctx), 20);
     this.displayInterval = setInterval(() => this.display(ctx), 0.1);
