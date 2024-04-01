@@ -28,6 +28,7 @@ exports.getStreak = async (req, res) => {
 }
 
 exports.updateStreak = async (req, res) => {
+  console.log(req.userId);
   try {
     const streak = await StreakModel.findOne({
       where: {
@@ -38,16 +39,25 @@ exports.updateStreak = async (req, res) => {
       return res.status(404).json({ message: 'Streak not found' });
     }
     const today = new Date();
-    const julianDate = JulianDate(today);
-    if ((julianDate - streak.date) > 1 && (julianDate - streak.date) < 2) {
+    const julian = julianDate(today);
+    console.log(julian);
+    console.log(julian - streak.date);
+    if ((julian - streak.date) >= 1 && (julian - streak.date) < 2) {
       await streak.update({
-        date: julianDate,
+        date: julian,
         streak: streak.streak + 1
       });
       res.status(200).json({ message: "Streak updated successfully!" });
-    } else {
+    } else if (streak.streak === 0) {
       await streak.update({
-        date: julianDate,
+        date: julian,
+        streak: 1
+      });
+      res.status(200).json({ message: "Streak reset" });
+    }
+    else {
+      await streak.update({
+        date: julian,
         streak: 1
       });
       res.status(200).json({ message: "Streak updated" });

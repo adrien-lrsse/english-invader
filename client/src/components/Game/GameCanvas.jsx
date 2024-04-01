@@ -273,6 +273,26 @@ class GameCanvas extends React.Component {
       console.error(error);
     }
   }
+
+  updateStreak = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const headers = {
+        authorization: token,
+      };
+
+      console.log(headers)
+
+      const response = await axios.post('/api/streak/update',  {}, {headers });
+
+      console.log(response.data);
+
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
   
   
   
@@ -297,8 +317,11 @@ class GameCanvas extends React.Component {
       ctx.fillText('You lost !', (this.gameCanvas.current.width - ctx.measureText('You lost !').width) / 2, this.gameCanvas.current.height / 2);
     }
 
+    
     this.fetchLeaderboard();
+    this.updateStreak();
   }
+  
   
 
   render() {

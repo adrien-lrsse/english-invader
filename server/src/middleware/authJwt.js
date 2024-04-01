@@ -4,6 +4,7 @@ const { UserModel, TopicModel, WordModel } = require("../models/index.js");
 
 
 verifyToken = (req, res, next) => {
+
     let token = req.headers.authorization;
 
     if (!token) {

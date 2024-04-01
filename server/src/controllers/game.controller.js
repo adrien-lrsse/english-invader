@@ -13,7 +13,6 @@ exports.getHighScores = async (req, res) => {
       }]
     });
 
-    console.log(games);
 
     const highScores = games.map(game => ({
       userId: game.idUser,
@@ -23,7 +22,6 @@ exports.getHighScores = async (req, res) => {
 
     res.status(200).json(highScores);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -41,7 +39,6 @@ exports.addHighScore = async (req, res) => {
 
 exports.getHighScoreByUserAndTopic = async (req, res) => {
   try {
-    console.log(req.params.idTopic, req.userId)
     const idTopic = req.params.idTopic;
     const userId = req.userId;
     const highScore = await GameModel.findOne({
@@ -50,7 +47,6 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
             idUser: userId
         }
     });
-    console.log("highScore", highScore);
     res.status(200).json(highScore);
   } catch (error) {
     res.status(500).json({ message: error.message });
