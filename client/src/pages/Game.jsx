@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import '../static/style/main.css';
 import Navbar from "../components/Navbar/Navbar";
 import GameCanvas from "../components/Game/GameCanvas";
@@ -9,6 +9,8 @@ function Game(){
 
     const {idTopic} = useParams();
 
+    const [topic, setTopic] = useState(0);
+
     
     useEffect(() => {
         if (!idTopic) {
@@ -16,6 +18,8 @@ function Game(){
             toast('Default topic selected', {
                 icon: '🍎'
             });
+        } else {
+            setTopic(idTopic);
         }
     }, [idTopic]);
 
@@ -23,7 +27,7 @@ function Game(){
     return (
         <div className="centering_horizontal centering_vertical vertical">
             <Navbar />
-            <GameCanvas idTopic={idTopic} />
+            <GameCanvas idTopic={topic} />
             <Toaster />
         </div>
 
