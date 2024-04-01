@@ -87,7 +87,7 @@ function NewOrganization() {
                         <div className="topicSelection" key={topic.idTopic} onClick={handleCheck}>
                             <input type="checkbox" name="topic" id="topic" value={topic.idTopic}/>
                             <label >{topic.title} :&nbsp;</label>
-                            <p>{topic.description}</p>
+                            <p className="topicDescription">{topic.description}</p>
                         </div>
                     ))}
                     </div>
