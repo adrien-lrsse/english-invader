@@ -64,6 +64,12 @@
     font-size: 1.75em;
 }
 
+.item_game li{
+    font-family: 'LTSaeada';
+    color: wheat;
+    font-size: 1.5em;
+}
+
 .vertical_item_game{
     margin-top: 1em;
     border-left: solid 4px wheat;

@@ -1,14 +1,33 @@
-const { GameModel } = require('../models/index');
+const { GameModel, UserModel } = require('../models/index');
 
 exports.getHighScores = async (req, res) => {
   try {
     const idTopic = req.params.idTopic;
-    const highScores = await GameModel.find({ idTopic: idTopic }).sort({ score: -1 }).limit(10);
+    const games = await GameModel.findAll({
+      where: { idTopic: idTopic },
+      order: [['score', 'DESC']],
+      limit: 5,
+      include: [{
+        model: UserModel,
+        attributes: ['pseudo']
+      }]
+    });
+
+    console.log(games);
+
+    const highScores = games.map(game => ({
+      userId: game.idUser,
+      score: game.score,
+      pseudo: game.User.pseudo
+    }));
+
     res.status(200).json(highScores);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.addHighScore = async (req, res) => {
   try {
@@ -25,6 +44,15 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
     console.log(req.params.idTopic, req.userId)
     const idTopic = req.params.idTopic;
     const userId = req.userId;
+<<<<<<< HEAD
+    const highScore = await GameModel.findOne({
+        where: {
+            idTopic: idTopic,
+            idUser: userId
+        }
+    });
+    console.log("highScore", highScore);
+=======
     const highScore = await GameModel.findOne({ 
       where : { 
         idTopic: idTopic, 
@@ -32,6 +60,7 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
       }
 
     });
+>>>>>>> main
     res.status(200).json(highScore);
   } catch (error) {
     res.status(500).json({ message: error.message });
