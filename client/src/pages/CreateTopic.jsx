@@ -98,9 +98,7 @@ function CreateTopic(){
                     <input id="description" className="input_answer" placeholder="topic description" />
                 </div>
                 <button onClick={saveTopic} id="save" className="add_word">save</button>
-                <p className="line"></p>
-                {/* <input id="description" className="input_answer" placeholder="description" /> */}
-                
+                <p className="line"></p>                
                 <div id="definition_section">
                     
                         <h2>write your topic words</h2>
