@@ -11,6 +11,8 @@ function Game(){
 
     const [topic, setTopic] = useState(0);
 
+    const [GameCanvasViewer, setGameCanvasViewer] = useState(null);
+
     
     useEffect(() => {
         if (!idTopic) {
@@ -18,18 +20,23 @@ function Game(){
             toast('Default topic selected', {
                 icon: '🍎'
             });
+            setGameCanvasViewer(<GameCanvas idTopic={0} />);
         } else {
             setTopic(idTopic);
+            setGameCanvasViewer(<GameCanvas idTopic={idTopic} />);
         }
-    }, [idTopic]);
+    }, []);
 
 
     return (
+
         <div className="centering_horizontal centering_vertical vertical">
             <Navbar />
-            <GameCanvas idTopic={topic} />
+            {GameCanvasViewer ? <GameCanvas idTopic={topic} /> : <h1>Loading...</h1>}
             <Toaster />
         </div>
+        
+        
 
     )
 }

@@ -44,7 +44,6 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
     console.log(req.params.idTopic, req.userId)
     const idTopic = req.params.idTopic;
     const userId = req.userId;
-<<<<<<< HEAD
     const highScore = await GameModel.findOne({
         where: {
             idTopic: idTopic,
@@ -52,15 +51,6 @@ exports.getHighScoreByUserAndTopic = async (req, res) => {
         }
     });
     console.log("highScore", highScore);
-=======
-    const highScore = await GameModel.findOne({ 
-      where : { 
-        idTopic: idTopic, 
-        idUser: userId 
-      }
-
-    });
->>>>>>> main
     res.status(200).json(highScore);
   } catch (error) {
     res.status(500).json({ message: error.message });
