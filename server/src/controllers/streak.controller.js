@@ -52,7 +52,7 @@ exports.updateStreak = async (req, res) => {
       });
       res.status(200).json({ message: "Streak reset" });
     }
-    else {
+    else if ((julian - streak.date) >= 2){
       await streak.update({
         date: julian,
         streak: 1
