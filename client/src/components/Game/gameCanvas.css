@@ -81,3 +81,18 @@
     color: wheat;
     font-size: 1.5em;
 }
+
+.answerFailed{
+    font-family: 'LTSaeada';
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+    margin-top: 1em;
+}
+
+.answerFailed span {
+    font-family: 'Kaio-Bold';
+    color: wheat;
+    font-size: 1.2em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}

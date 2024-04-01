@@ -342,8 +342,8 @@ class GameCanvas extends React.Component {
             </div>
             {this.state.failed.map((item, i) => (
               <div className="horizontal failed_guess" key={i} style={{marginLeft : '1em'}}>
-                <p>(🇬🇧) <b>{item.unknown}</b> means&nbsp;</p>
-                <p><b>{item.guess}</b> (🇫🇷)</p>
+                <p className="answerFailed"><span>{item.unknown}</span> means <span>{item.guess}</span></p>
+                
               </div>
             ))}
           </div>

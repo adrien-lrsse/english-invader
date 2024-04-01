@@ -39,7 +39,7 @@ function ViewOrganization() {
             <Navbar />
             <h1 className="title">organization : {title}</h1>
             <div className="descriptionDiv">
-                <p className="description">{description}</p>
+                <p className="descriptionView">{description}</p>
             </div>
             <TopicList topics={topics} />
         </div>
