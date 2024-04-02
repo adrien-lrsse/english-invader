@@ -72,51 +72,40 @@ function EditTopic() {
             return;
         }
     
+        updateTopic(title, description, topicId, topicDetails.words);
+
+    };
+
+    const updateTopic = (title, description, idTopic, words) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/';
+            return;
+        }
+
         const headers = {
-            authorization: localStorage.getItem('token')
+            authorization: token
         };
-    
-        deleteTopic(topicId, headers)
-            .then(() => {
-                createNewTopic({ title, description }, topicDetails.words, headers);
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error('Failed to update topic');
-            });
-    };
-    
-
-    const createNewTopic = (topicData, words, headers) => {
-        axios.post('/api/topics', topicData, { headers })
-        .then(response => {
-            const topicId = response.data.idTopic;
-            
-            const wordsWithTopicId = words.map(word => ({ ...word, idTopic: topicId }));
         
-            axios.post('/api/words', wordsWithTopicId, { headers })
-            .then(response => {
-                toast.success('Topic and words saved successfully');
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error('Failed to save words');
-            });
-        })
-        .catch(error => {
-            console.error(error);
-            toast.error('Failed to save topic');
-        });
-    };    
+        const data = {
+            title: title,
+            description: description,
+            idTopic: idTopic,
+            words: words
+        };
 
-    const deleteTopic = (topicId, headers) => {
-        return axios.delete(`/api/topics/topicdetail/${topicId}`, { headers })
-        .catch(error => {
+        try {
+            axios.post('/api/words/update', data, { headers })
+            .then(() => {
+                toast.success('Topic updated successfully');
+            })
+        }
+
+        catch (error) {
             console.error(error);
-            toast.error('Failed to delete existing topic');
-            throw error;
-        });
-    };
+        }
+    }
+    
 
     return (
         <div className="createTopic">

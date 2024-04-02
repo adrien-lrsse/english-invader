@@ -57,3 +57,40 @@ exports.getWordsByTopic = (req, res) => {
 
 };
 
+exports.updateWord = (req, res) => {
+    const title = req.body.title;
+    const description = req.body.description;
+
+    if (!title || !description) {
+        return res.status(400).json({ message: 'title and description are required' });
+    }
+
+    TopicModel.update({
+        title: title,
+        description: description
+    }, {
+        where: {
+            idTopic: req.body.idTopic
+        }
+    }).then(() => {
+        WordModel.destroy({
+            where: {
+                idTopic: req.body.idTopic
+            }
+        }).then(() => {
+            const words = req.body.words;
+            for (let word of words) {
+                WordModel.create({
+                    word_en: word.word_en,
+                    word_fr: word.word_fr,
+                    idTopic: req.body.idTopic
+                });
+            }
+            res.status(200).json({ message: 'Topic updated successfully' });
+        }).catch(err => {
+            res.status(500).json({ message: err.message });
+        });
+    }).catch(err => {
+        res.status(500).json({ message: err.message });
+    });
+}
