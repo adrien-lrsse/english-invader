@@ -202,21 +202,36 @@ class GameCanvas extends React.Component {
 
   addNewWordInGame(ctx) {
     const entierAleatoire = Math.floor(Math.random()*50+1);
-    if (entierAleatoire === 1 && this.state.dictionary.size !=0){
-
+    if (entierAleatoire === 1 && this.state.dictionary.size !== 0){
+  
         var randomKey = this.randomSelection(this.state.dictionary);
-        const word = new CanvasWord(randomKey, this.state.dictionary.get(randomKey), Math.floor(Math.random() * (this.gameCanvas.current.width - ctx.measureText(this.state.dictionary.get(randomKey)).width)-1)  + 1, 0);
+        let newPos;
+        let wordWidth = ctx.measureText(this.state.dictionary.get(randomKey)).width;
+        let lastWordWidth = this.state.inGame.length > 0 ? ctx.measureText(this.state.inGame[this.state.inGame.length - 1].text).width : 0;        
+        do {
+          newPos = Math.floor(Math.random() * (this.gameCanvas.current.width - wordWidth - 1)) + 1;
+        } while (this.state.inGame.length > 0 && isOverlapping(newPos, wordWidth, this.state.inGame[this.state.inGame.length - 1], lastWordWidth));
+  
+        const word = new CanvasWord(randomKey, this.state.dictionary.get(randomKey), newPos, 0);
         const newDictionary = this.state.dictionary;
-
+  
         newDictionary.delete(randomKey)
-        
+  
         this.setState((prevState) => ({
             inGame: [...prevState.inGame, word],
             dictionary: newDictionary,
           }));
     }
-
+  
+    function isOverlapping(newPos, wordWidth, lastWord) {
+      const newWordEnd = newPos + wordWidth;
+      const lastWordWidth = ctx.measureText(lastWord.text).width;
+      const lastWordEnd = lastWord.posX + lastWordWidth;
+      return newPos < lastWordEnd && newWordEnd > lastWord.posX;
+    }
+    
   }
+  
 
   handleProposalKeyDown = (event) => {
     if (event.key === "Enter") {
